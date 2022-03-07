@@ -105,3 +105,4 @@ dist
 
 # Database
 bdd/
+token.json
