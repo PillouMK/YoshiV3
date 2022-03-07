@@ -33,9 +33,6 @@ bot.on("ready", async () =>
     bot.user.setStatus("online");
     bot.user.setActivity("Holiday !!!");
     deleteAllLineUp();
-    let index = fct.hasard(1,6);
-    bot.user.setAvatar(`./image/yoshi${index}.png`);
-    console.log("new pdp : "+`./image/yoshi${index}.png`);
 })
 
 bot.on("message", async message => 
