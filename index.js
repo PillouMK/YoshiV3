@@ -29,7 +29,7 @@ fs.readdir("./commands/", (err, files) =>
 
 bot.on("ready", async () =>
 {
-    console.log('Bot lancé V3!');
+    console.log('Bot lancé V3');
     bot.user.setStatus("online");
     bot.user.setActivity("Holiday !!!");
     deleteAllLineUp();
