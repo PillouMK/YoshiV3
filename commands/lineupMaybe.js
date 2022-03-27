@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) =>
 
     // Enregistrement des horaires
     for(element in args){
-        if(message.author.id === "156445194861019136") {
+        if(numberTest.test(args[element]) && args[element].length == 2 && message.author.id === "156445194861019136") {
                 args[element] = (parseInt(args[element]) + 1).toString()
             }
         if(numberTest.test(args[element]) && args[element].length == 2){      
@@ -60,9 +60,7 @@ module.exports.run = async (bot, message, args) =>
     {
         // Parcours des horaires
         horaireList.forEach(element => {
-            let now = new Date(Date.now());
-            now.setHours(element-1, 0, 0, 0);
-            let timeStamp = now/1000;
+            let timeStamp = fct.adaptHour(element, settings.decalageHoraire);
             if(bdd_lineup[element])
             {
                 if(bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id) != -1){
@@ -108,6 +106,7 @@ module.exports.run = async (bot, message, args) =>
     {
         message.reply("Aucun horaire valide n'a été fourni");
     }
+    message.delete();
 }
 
 module.exports.config = {

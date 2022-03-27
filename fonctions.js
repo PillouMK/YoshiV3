@@ -86,6 +86,12 @@ class Fonctions {
     hasard(min, max){
         return min+Math.floor(Math.random()*(max-min+1));
     }
+
+    adaptHour(horaire, decalageHoraire) {
+        let now = new Date(Date.now());
+        now.setHours(horaire-decalageHoraire, 0, 0, 0);
+        return (now/1000);   
+    }
 }
 
 module.exports = Fonctions;

@@ -96,36 +96,36 @@ module.exports.run = async (bot, message, args) =>
             if(a === 0)
             {
                 classement      += "`1st`   : **"+array4map[a].name+"**\n";
-                timeClassment   += array4map[a].time+"\n";
-                timeDiffShow    +="(+0s)\n";
+                timeClassment   += "`"+array4map[a].time+"`"+"\n";
+                timeDiffShow    += "`(+0s)`\n";
             }
             if(a === 1)
             {
                 classement      += "`2nd`   : **"+array4map[a].name+"**\n";
-                timeClassment   += array4map[a].time+"\n";
+                timeClassment   += "`"+array4map[a].time+"`"+"\n";
                 let dif         = ((array4map[a].value)-(array4map[0].value))/1000;
-                timeDiffShow    += "(+"+dif+"s)\n";
+                timeDiffShow    += "`(+"+dif+"s)`\n";
             }
             if(a === 2)
             {
                 classement      += "`3rd`   : **"+array4map[a].name+"**\n";
-                timeClassment   += array4map[a].time+"\n";
+                timeClassment   += "`"+array4map[a].time+"`"+"\n";
                 let dif         = ((array4map[a].value)-(array4map[0].value))/1000;
-                timeDiffShow    += "(+"+dif+"s)\n";
+                timeDiffShow    += "`(+"+dif+"s)`\n";
             }
             if (a > 2 && a < 9)
             {
                 classement      += "`"+(a+1)+"th`   : **"+array4map[a].name+"**\n";
-                timeClassment   += array4map[a].time+"\n";
+                timeClassment   += "`"+array4map[a].time+"`"+"\n";
                 let dif         = ((array4map[a].value)-(array4map[0].value))/1000;
-                timeDiffShow    += "(+"+dif+"s)\n";
+                timeDiffShow    += "`(+"+dif+"s)`\n";
             }
             if (a == 9)
             {
                 classement      += "`"+(a+1)+"th` : **"+array4map[a].name+"**\n";
-                timeClassment   += array4map[a].time+"\n";
+                timeClassment   += "`"+array4map[a].time+"`"+"\n";
                 let dif         = ((array4map[a].value)-(array4map[0].value))/1000;
-                timeDiffShow    += "(+"+dif+"s)\n";
+                timeDiffShow    += "`(+"+dif+"s)`\n";
             }
         }
         const classementEmbed = {
