@@ -40,14 +40,11 @@ module.exports.run = async (bot, message, args) =>
 
     // Enregistrement des horaires
     for(element in args){
-        if(numberTest.test(args[element]) && args[element].length == 2 && message.author.id === "156445194861019136") {
+        if(message.author.id === "156445194861019136") {
                 args[element] = (parseInt(args[element]) + 1).toString()
             }
         if(numberTest.test(args[element]) && args[element].length == 2){
-             if(message.author.id === "156445194861019136") {
-                horaireList.push(args[element]+1);
-            }
-            horaireList.push(args[element]);
+                horaireList.push(args[element]);
         }
     }
 
