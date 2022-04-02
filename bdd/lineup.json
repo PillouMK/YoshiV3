@@ -1,15 +1,3 @@
 {
-    "lineUp": {
-        "21": {
-            "can": [
-                {
-                    "id": "399608625057890316",
-                    "name": "Erinshea",
-                    "roster": "Odyssey",
-                    "mute": false
-                }
-            ],
-            "maybe": []
-        }
-    }
+    "lineUp": {}
 }

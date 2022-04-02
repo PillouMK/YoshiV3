@@ -1,75 +1,75 @@
 {
     "botwar": {
-        "645718159889793064": {
+        "428644679165411331": {
             "team1": {
                 "NameTeam": "YF",
                 "PenaYF": 0,
-                "TotalYF": 501,
+                "TotalYF": 489,
                 "recapScoreYF": [
-                    37,
-                    49,
-                    38,
-                    49,
-                    45,
-                    49,
+                    32,
                     34,
-                    52,
-                    27,
-                    35,
+                    50,
+                    29,
                     53,
-                    33
+                    28,
+                    46,
+                    41,
+                    45,
+                    28,
+                    45,
+                    58
                 ]
             },
             "team2": {
-                "NameTeam": "AGs",
+                "NameTeam": "NFO1",
                 "PenaADV": 0,
-                "TotalADV": 483,
+                "TotalADV": 495,
                 "recapScoreADV": [
-                    45,
-                    33,
-                    44,
-                    33,
-                    37,
-                    33,
+                    50,
                     48,
-                    30,
-                    55,
-                    47,
+                    32,
+                    53,
                     29,
-                    49
+                    54,
+                    36,
+                    41,
+                    37,
+                    54,
+                    37,
+                    24
                 ]
             },
             "paramWar": {
-                "verifDoublon": "!race 3 4 7 8 11 12 rMC",
+                "verifDoublon": "!race 1 2 3 5 6 7 dBB",
                 "race": 12,
-                "totaleDiff": 18,
+                "totaleDiff": -6,
                 "recapMap": [
-                    "rYV",
-                    "TM",
-                    "DS",
-                    "rDKJ",
-                    "MW",
-                    "rTTC",
-                    "dYC",
-                    "SGF",
-                    "rDDD",
-                    "dBB",
+                    "bTC",
+                    "rMC",
                     "rWS",
-                    "rMC"
+                    "dEA",
+                    "rYV",
+                    "dHC",
+                    "rDDD",
+                    "rTTC",
+                    "rDKJ",
+                    "rTT",
+                    "bSR",
+                    "dBB"
                 ],
                 "recapDiff": [
-                    -8,
-                    16,
-                    -6,
-                    16,
-                    8,
-                    16,
+                    -18,
                     -14,
-                    22,
-                    -28,
-                    -12,
+                    18,
+                    -24,
                     24,
-                    -16
+                    -26,
+                    10,
+                    0,
+                    8,
+                    -26,
+                    8,
+                    34
                 ]
             }
         }
