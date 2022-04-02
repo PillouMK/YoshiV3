@@ -15,7 +15,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        server: sftp://node2.adkynet.com
+        server: sftp://node2.adkynet.com:2022
         username: wlv92tkt.8389b275
         password: griotte14123
         protocol: ftps
