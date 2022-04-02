@@ -1,0 +1,77 @@
+{
+    "botwar": {
+        "645718159889793064": {
+            "team1": {
+                "NameTeam": "YF",
+                "PenaYF": 0,
+                "TotalYF": 501,
+                "recapScoreYF": [
+                    37,
+                    49,
+                    38,
+                    49,
+                    45,
+                    49,
+                    34,
+                    52,
+                    27,
+                    35,
+                    53,
+                    33
+                ]
+            },
+            "team2": {
+                "NameTeam": "AGs",
+                "PenaADV": 0,
+                "TotalADV": 483,
+                "recapScoreADV": [
+                    45,
+                    33,
+                    44,
+                    33,
+                    37,
+                    33,
+                    48,
+                    30,
+                    55,
+                    47,
+                    29,
+                    49
+                ]
+            },
+            "paramWar": {
+                "verifDoublon": "!race 3 4 7 8 11 12 rMC",
+                "race": 12,
+                "totaleDiff": 18,
+                "recapMap": [
+                    "rYV",
+                    "TM",
+                    "DS",
+                    "rDKJ",
+                    "MW",
+                    "rTTC",
+                    "dYC",
+                    "SGF",
+                    "rDDD",
+                    "dBB",
+                    "rWS",
+                    "rMC"
+                ],
+                "recapDiff": [
+                    -8,
+                    16,
+                    -6,
+                    16,
+                    8,
+                    16,
+                    -14,
+                    22,
+                    -28,
+                    -12,
+                    24,
+                    -16
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "MKU": {
+        "Galaxy": {
+            "21": {
+                "versus": "TT",
+                "lu": [],
+                "sub": [],
+                "host": ""
+            },
+            "22": {
+                "versus": "TT",
+                "lu": [],
+                "sub": [],
+                "host": ""
+            }
+        },
+        "Odyssey": {}
+    }
+}

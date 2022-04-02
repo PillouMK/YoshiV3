@@ -3,5 +3,3 @@ node_modules/
 jspm_packages/
 
 # Database
-bdd/
-token.json
