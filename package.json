@@ -7,7 +7,7 @@
     "better-sqlite3": "^7.1.2",
     "canvas": "^2.6.1",
     "child_process": "^1.0.2",
-    "discord.js": "^11.5.1",
+    "discord.js": "^12.5.1",
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "fnt": "^1.0.4",
