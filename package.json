@@ -1,0 +1,39 @@
+{
+  "name": "yoshiv3",
+  "version": "1.0.0",
+  "description": "bot discord V3",
+  "main": "index.js",
+  "dependencies": {
+    "better-sqlite3": "^7.1.2",
+    "canvas": "^2.6.1",
+    "child_process": "^1.0.2",
+    "discord.js": "^11.5.1",
+    "ffmpeg": "^0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "fnt": "^1.0.4",
+    "fs": "^0.0.1-security",
+    "moment": "^2.24.0",
+    "node-opus": "^0.3.3",
+    "opusscript": "^0.0.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "sqlite3": "^5.0.1",
+    "superagent": "^6.1.0",
+    "youch": "^2.1.1",
+    "ytdl-core": "^4.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PillouMK/YoshiV3.git"
+  },
+  "author": "PillouMK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PillouMK/YoshiV3/issues"
+  },
+  "homepage": "https://github.com/PillouMK/YoshiV3#readme"
+}
