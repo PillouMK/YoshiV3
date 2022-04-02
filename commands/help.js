@@ -4,8 +4,8 @@ const fs = require('fs');
 
 module.exports.run = async (bot, message, args) =>
 {
-    bot.users.get(message.author.id).send("__**Guide des commandes de YoshiV2**__\n");
-    bot.users.get(message.author.id).send({
+    
+    const msg1 = {
         embed: {
             color: 3066993,
             title: "__**Bot-war:**__",
@@ -34,8 +34,10 @@ module.exports.run = async (bot, message, args) =>
             footer: {
                 text: `Guide Bot-war`,
             } 
-        }});
-        bot.users.get(message.author.id).send({
+        }
+    };
+
+        const msg2 = {
             embed: {
                 color: 3066993,
                 title: "__**Code-ami et enregistrement de code-ami**__",
@@ -61,8 +63,8 @@ module.exports.run = async (bot, message, args) =>
                     text: `Guide Code-ami`,
                 } 
             }
-        });
-        bot.users.get(message.author.id).send({
+        };
+        const msg3 = {
             embed: {
                 color: 3066993,
                 title: "__**Commandes fun et ajout**__",
@@ -100,8 +102,8 @@ module.exports.run = async (bot, message, args) =>
                     text: `Guide commandes fun | TOUT ABUS D'AJOUT SERA SANCTIONNÉ`,
                 } 
             }
-        });
-        bot.users.get(message.author.id).send({
+        };
+       const msg4 = {
             embed: {
                 color: 3066993,
                 title: "__**Commande Line up (à venir)**__",
@@ -139,6 +141,21 @@ module.exports.run = async (bot, message, args) =>
                     text: `Guide line up | PROCHAINEMENT`,
                 } 
             }
+        };
+        bot.users.fetch(message.author.id, false).then((user) => {
+            user.send("__**Guide des commandes de YoshiV2**__\n");
+        });
+        bot.users.fetch(message.author.id, false).then((user) => {
+        user.send(msg1);
+        });
+        bot.users.fetch(message.author.id, false).then((user) => {
+            user.send(msg2);
+        });
+        bot.users.fetch(message.author.id, false).then((user) => {
+            user.send(msg3);
+        });
+        bot.users.fetch(message.author.id, false).then((user) => {
+            user.send(msg4);
         });
 }
 

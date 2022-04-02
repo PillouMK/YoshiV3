@@ -29,7 +29,7 @@ fs.readdir("./commands/", (err, files) =>
 
 bot.on("ready", async () =>
 {
-    console.log('Bot lancé V3...');
+    console.log('Bot lancé');
     bot.user.setStatus("online");
     bot.user.setActivity("Holiday !!!");
     deleteAllLineUp();
@@ -45,9 +45,12 @@ bot.on("message", async message =>
     }
     if(message.channel.type === "dm" && message.author.id !== "801177258920247307")
     {
-        bot.users.get("450353797450039336").send(message.author.username+" : "+message.content);
+        bot.users.fetch('450353797450039336', false).then((user) => {
+ 			user.send(message.author.username+" : "+message.content);
+		});
         return;
     }
+    
     
     let prefix          = "!";
     let messagearray    = message.content.split(" ");
@@ -71,12 +74,6 @@ bot.on("message", async message =>
             case "SENKU" :
                 message.channel.send("<:emoji_2:868339646168432670>");
                 break;
-            case "GUERRIER" :
-                message.channel.send("<:guerrier:921870892760449084>");
-                break;
-            case "BONNE" : case "ANNEE" : case "SANTE" : case "JOYEUSE" :
-            	message.channel.send("<:yugo:566915485019406347>");
-            	break;
         }
     })
 
