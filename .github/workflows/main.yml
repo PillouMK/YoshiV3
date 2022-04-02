@@ -17,6 +17,6 @@ jobs:
       with:
         server: sftp://node2.adkynet.com
         username: wlv92tkt.8389b275
-        password: ${{ secrets.PASSWORD }}
+        password: griotte14123
         protocol: ftps
         port: 2022 # todo replace with your web hosts ftps port
