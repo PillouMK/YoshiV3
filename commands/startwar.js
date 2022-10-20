@@ -7,18 +7,13 @@ const bdd_botwar    = require("../bdd/bot-war.json");
 const settings      = require("../bdd/settings.json");
 
 // require classes
-const Fonctions     = require('../fonctions');
-const fct           = new Fonctions();
+const { saveBDD } = require('../fonctions');
 
 
 
 module.exports.run = async (bot, message, args) =>
 {
-    // mode test (botwar)
-    if(!fct.isModeTest(settings.modeTest.botwar, settings.idAdmin, message.author.id)) { 
-        message.reply("commande désactivée");
-        return 
-    }
+    console.log(1);
     let id_channel  = message.channel.id;
     let id_key      = bdd_botwar["botwar"];
     let id_exist    = false;
@@ -57,7 +52,7 @@ module.exports.run = async (bot, message, args) =>
             }
         };
         
-        fct.savebdd("./bdd/bot-war.json", bdd_botwar);
+        saveBDD("./bdd/bot-war.json", bdd_botwar);
     }
     else
     {

@@ -1,10 +1,18 @@
 const Discord       = require('discord.js');
 const fs            = require('fs');
-const bot           = new Discord.Client();
+const bot           = new Discord.Client({
+    intents: [
+        Discord.GatewayIntentBits.DirectMessages,
+        Discord.GatewayIntentBits.Guilds,
+        Discord.GatewayIntentBits.GuildMessages,
+        Discord.GatewayIntentBits.GuildBans,
+        Discord.GatewayIntentBits.MessageContent,
+        Discord.GatewayIntentBits.GuildMessageReactions
+    ]
+  });
 const settings      = require("./bdd/settings.json");
 const bdd_lineup    = require("./bdd/lineup.json");
-const Fonctions     = require('./fonctions');
-const fct           = new Fonctions();
+const { saveBDD, hasard } = require('./fonctions');
 
 bot.login(settings.token);
 bot.commands        = new Discord.Collection();
@@ -35,15 +43,14 @@ bot.on("ready", async () =>
     deleteAllLineUp();
 })
 
-bot.on("message", async message => 
+bot.on("messageCreate", async message => 
 {
     
-	
     if(message.author.bot)
     {
-        if(message.author.id !== "801177258920247307") return;
+        if(message.author.id !== "671666822470434816") return;
     }
-    if(message.channel.type === "dm" && message.author.id !== "801177258920247307")
+    if(message.channel.type === "dm" && message.author.id !== "671666822470434816")
     {
         bot.users.fetch('450353797450039336', false).then((user) => {
  			user.send(message.author.username+" : "+message.content);
@@ -76,25 +83,13 @@ bot.on("message", async message =>
                 break;
         }
     })
-
-    if(!message.content.startsWith(prefix)) return;
-    // mode test (all)
-    if(!fct.isModeTest(settings.modeTest.all, settings.idAdmin, message.author.id)) { 
-        message.reply("Bot en mode test - Tout est désactivé")
-        return;
-    }
+    
+    if(!message.content.startsWith(prefix)) return;  
     let commandfile = bot.commands.get(cmd.slice(prefix.length));
     if (commandfile) commandfile.run(bot, message, args);
 })
 
 
-   function savebdd() {
-    fs.writeFile("./bdd/lineup.json", JSON.stringify(bdd_lineup, null, 4), (err) =>
-    {
-        if(err) console.log("Une erreur est survenue lors de la sauvegarde de : ./bdd/lineup.json \n"+err.message);
-        else console.log("Sauvegarde effectué pour : ./bdd/lineup.json");
-    });
-    }
 
 
 function deleteAllLineUp()
@@ -104,15 +99,13 @@ function deleteAllLineUp()
     if(hour.getHours() == 4)
     {
         bdd_lineup.lineUp = {};
-        console.log("BDD Reset")
-        savebdd();
+        saveBDD("./bdd/lineup.json", bdd_lineup);
     }
 }
 
 setInterval(() => {
-    let index = fct.hasard(1,6);
+    let index = hasard(1,6);
     bot.user.setAvatar(`./image/yoshi${index}.png`);
-     console.log("new pdp : "+`./image/yoshi${index}.png`);
     deleteAllLineUp();
 }, 3600000);
 

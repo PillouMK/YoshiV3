@@ -2,6 +2,4 @@
 node_modules/
 jspm_packages/
 
-# Database
-
-/bdd
+bdd/settings.json

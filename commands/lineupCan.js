@@ -9,8 +9,7 @@ const settings          = require("../bdd/settings.json");
 
 // require classes
 const User          = require('../class/User');
-const Fonctions     = require('../fonctions');
-const fct           = new Fonctions();
+const { saveBDD, adaptHour } = require('../fonctions');
 
 // Regex pattern
 const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
@@ -18,12 +17,6 @@ const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
 
 module.exports.run = async (bot, message, args) =>
 {
-    // mode test (line up)
-    if(!fct.isModeTest(settings.modeTest.lineup, settings.idAdmin, message.author.id)) { 
-        console.log("missing permissions");
-        message.reply("commande désactivée");
-        return
-    }
 
     let membre;
     let membreObject;
@@ -41,7 +34,11 @@ module.exports.run = async (bot, message, args) =>
     // Enregistrement des horaires
     for(element in args){
         if(numberTest.test(args[element]) && args[element].length == 2 && message.author.id === "156445194861019136") {
+            if(args[element].toString() == "23") {
+                args[element] = "00";
+            } else {
                 args[element] = (parseInt(args[element]) + 1).toString();
+            }
         }
         if(numberTest.test(args[element]) && args[element].length == 2){
             horaireList.push(args[element]);
@@ -60,7 +57,7 @@ module.exports.run = async (bot, message, args) =>
     {
         // Parcours des horaires
         horaireList.forEach(element => {
-            let timeStamp = fct.adaptHour(element, settings.decalageHoraire);
+            let timeStamp = adaptHour(element, settings.decalageHoraire);
             
             if(bdd_lineup[element])
             {
@@ -68,7 +65,7 @@ module.exports.run = async (bot, message, args) =>
                 if(bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id) != -1){
                     let index = bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id)
                     bdd_lineup[element]["maybe"].splice(index, 1);
-                    fct.savebdd("./bdd/lineup.json", bdd_lineupRequire);
+                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                 }
                 // Vérif si joueur déjà enregistré
                 if(bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id) == -1)
@@ -76,13 +73,13 @@ module.exports.run = async (bot, message, args) =>
                     // Enregistre le joueur
                     bdd_lineup[element]["can"].push(membreObject);
                     message.channel.send(membreObject.name+ " a bien été ajouté pour "+"<t:"+timeStamp+":t> !");
-                    fct.savebdd("./bdd/lineup.json", bdd_lineupRequire);
+                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                     
                 } else if (bdd_lineup[element]["can"][bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id)].mute != mute) {
                     bdd_lineup[element]["can"][bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id)].mute = mute;
                     let msgMute = mute ?  "mute" : "unmute";
                     message.channel.send(membreObject.name+" est maintenant "+ msgMute +" pour <t:"+timeStamp+":t>");
-                    fct.savebdd("./bdd/lineup.json", bdd_lineupRequire);
+                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                 }
                 else 
                 {
@@ -100,7 +97,7 @@ module.exports.run = async (bot, message, args) =>
                 // Enregistre le joueur ayant créé la line up
                 bdd_lineup[element]["can"].push(membreObject);
                 message.channel.send(membreObject.name+ " a bien été ajouté pour "+"<t:"+timeStamp+":t>");
-                fct.savebdd("./bdd/lineup.json", bdd_lineupRequire);
+                saveBDD("./bdd/lineup.json", bdd_lineupRequire);
             }
         })
     }

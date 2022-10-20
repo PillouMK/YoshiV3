@@ -1,75 +1,105 @@
 {
     "botwar": {
-        "428644679165411331": {
+        "1025192411305091082": {
             "team1": {
-                "NameTeam": "YF",
-                "PenaYF": 0,
-                "TotalYF": 489,
+                "NameTeam": "a",
+                "PenaYF": 1,
+                "TotalYF": 317,
                 "recapScoreYF": [
-                    32,
-                    34,
-                    50,
-                    29,
-                    53,
-                    28,
-                    46,
-                    41,
-                    45,
-                    28,
-                    45,
-                    58
+                    61,
+                    61,
+                    33,
+                    61,
+                    61,
+                    60
                 ]
             },
             "team2": {
-                "NameTeam": "NFO1",
+                "NameTeam": "b",
                 "PenaADV": 0,
-                "TotalADV": 495,
+                "TotalADV": 155,
                 "recapScoreADV": [
-                    50,
-                    48,
-                    32,
-                    53,
-                    29,
-                    54,
-                    36,
-                    41,
-                    37,
-                    54,
-                    37,
-                    24
+                    21,
+                    21,
+                    49,
+                    21,
+                    21,
+                    22
                 ]
             },
             "paramWar": {
-                "verifDoublon": "!race 1 2 3 5 6 7 dBB",
-                "race": 12,
-                "totaleDiff": -6,
+                "verifDoublon": "!race 1 2 3 4 5 7 rMP",
+                "race": 6,
+                "totaleDiff": 162,
                 "recapMap": [
-                    "bTC",
-                    "rMC",
-                    "rWS",
-                    "dEA",
-                    "rYV",
-                    "dHC",
-                    "rDDD",
-                    "rTTC",
-                    "rDKJ",
-                    "rTT",
-                    "bSR",
-                    "dBB"
+                    "dBB",
+                    "dMC",
+                    "rRRy",
+                    "dMC",
+                    "rMP",
+                    "rMP"
                 ],
                 "recapDiff": [
-                    -18,
-                    -14,
-                    18,
-                    -24,
-                    24,
-                    -26,
-                    10,
-                    0,
-                    8,
-                    -26,
-                    8,
+                    40,
+                    40,
+                    -16,
+                    40,
+                    40,
+                    38
+                ]
+            }
+        },
+        "645718159889793064": {
+            "team1": {
+                "NameTeam": "YF",
+                "PenaYF": 0,
+                "TotalYF": 0,
+                "recapScoreYF": []
+            },
+            "team2": {
+                "NameTeam": "RRmix",
+                "PenaADV": 0,
+                "TotalADV": 0,
+                "recapScoreADV": []
+            },
+            "paramWar": {
+                "verifDoublon": "",
+                "race": 0,
+                "totaleDiff": 0,
+                "recapMap": [],
+                "recapDiff": []
+            }
+        },
+        "687671375955361960": {
+            "team1": {
+                "NameTeam": "a",
+                "PenaYF": 0,
+                "TotalYF": 108,
+                "recapScoreYF": [
+                    60,
+                    48
+                ]
+            },
+            "team2": {
+                "NameTeam": "b",
+                "PenaADV": 0,
+                "TotalADV": 56,
+                "recapScoreADV": [
+                    22,
                     34
+                ]
+            },
+            "paramWar": {
+                "verifDoublon": "!race 1 2 3 8 9 11 rTT",
+                "race": 2,
+                "totaleDiff": 52,
+                "recapMap": [
+                    "rMC",
+                    "rTT"
+                ],
+                "recapDiff": [
+                    38,
+                    14
                 ]
             }
         }

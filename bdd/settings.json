@@ -1,14 +1,4 @@
 {
-    "token": "ODAxMTc3MjU4OTIwMjQ3MzA3.YAc4dw.ySZ-9FhHUqJm4xVW7x_oNm6JJtE",
-    "idAdmin": "450353797450039336",
-    "modeTest": {
-        "all": false,
-        "lineup": false,
-        "botwar": false,
-        "mku_lu": false,
-        "timetrial": false,
-        "weeklytt": false,
-        "quote": false
-    }, 
-    "decalageHoraire": 2
+    "token": "NjcxNjY2ODIyNDcwNDM0ODE2.XlBDDg.Y1-r2wRrilhEalW3-d6-u6X5iXQ", 
+    "decalageHoraire": 0
 }

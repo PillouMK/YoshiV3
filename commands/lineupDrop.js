@@ -9,8 +9,7 @@ const settings          = require("../bdd/settings.json");
 
 // require classes
 const User          = require('../class/User');
-const Fonctions     = require('../fonctions');
-const fct           = new Fonctions();
+const { saveBDD, adaptHour } = require('../fonctions');
 
 // Regex pattern
 const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
@@ -18,13 +17,6 @@ const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
 
 module.exports.run = async (bot, message, args) =>
 {
-
-    // mode test (line up)
-    if(!fct.isModeTest(settings.modeTest.lineup, settings.idAdmin, message.author.id)) { 
-        console.log("missing permissions");
-        message.reply("commande désactivée");
-        return 
-    }
 
     let membre;
     let membreObject;
@@ -54,7 +46,7 @@ module.exports.run = async (bot, message, args) =>
     if(horaireList.length > 0)
     {
         horaireList.forEach(element => {
-            let timeStamp = fct.adaptHour(element, settings.decalageHoraire);
+            let timeStamp = adaptHour(element, settings.decalageHoraire);
     
             if(bdd_lineup[element])
             {
@@ -64,14 +56,14 @@ module.exports.run = async (bot, message, args) =>
                     let index = bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id);
                     bdd_lineup[element]["can"].splice(index, 1);
                     message.channel.send(membreObject.name+ " a bien été retiré pour "+"<t:"+timeStamp+":t> !");
-                    fct.savebdd("./bdd/lineup.json", bdd_lineupRequire);
+                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                 } 
                 else if(bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id) != -1)
                 {
                     let index = bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id);
                     bdd_lineup[element]["maybe"].splice(index, 1);
-                    message.channel.send(membreObject.name+ " a bien été retiré!");
-                    fct.savebdd("./bdd/lineup.json", bdd_lineupRequire);
+                    message.channel.send(membreObject.name+ " a bien été retiré pour "+"<t:"+timeStamp+":t> !");
+                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                 }
                 else {
                     message.channel.send(membreObject.name+ " a bien été retiré pour "+"<t:"+timeStamp+":t> !");;

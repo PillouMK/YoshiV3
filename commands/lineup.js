@@ -8,22 +8,13 @@ const bdd_lineup = bdd_lineupRequire.lineUp;
 const settings = require("../bdd/settings.json");
 
 // require classes
-const Fonctions     = require('../fonctions');
-const fct           = new Fonctions();
+const { adaptHour } = require('../fonctions');
 
 // Regex pattern
 const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
 
 module.exports.run = async (bot, message, args) =>
 {
-    // mode test (line up)
-    if(!fct.isModeTest(settings.modeTest.lineup, settings.idAdmin, message.author.id)) { 
-        console.log("missing permissions");
-        message.reply("commande désactivée");
-        return
-    }
-    
-   
     let memberCan;
     let memberMaybe;
     let horaireList = [];
@@ -53,7 +44,7 @@ module.exports.run = async (bot, message, args) =>
         
     horaireList.forEach( horaire => {
         
-        let timeStamp = fct.adaptHour(horaire, settings.decalageHoraire);
+        let timeStamp = adaptHour(horaire, settings.decalageHoraire);
     
         if(bdd_lineup[horaire])
         {     
@@ -142,7 +133,7 @@ module.exports.run = async (bot, message, args) =>
                         text: "Line up par roster",
                     }
                 };
-                message.channel.send({embed: classementEmbed});
+                message.channel.send({embeds: [classementEmbed]});
                 }
                 else
                 {
@@ -187,7 +178,7 @@ module.exports.run = async (bot, message, args) =>
                     timestamp: new Date(),
                     footer:{text: "Line up ",}
                 };
-                message.channel.send({embed: classementEmbed});
+                message.channel.send({embeds: [classementEmbed]});
                 }  
         } 
         

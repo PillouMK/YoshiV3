@@ -9,7 +9,7 @@ function hasard(min, max){
 
 module.exports.run = async (bot, message, args) =>
 {
-    var maxtab = (bdd_gif["database"]["beni"].length)-1;
+    let maxtab = (bdd_gif["database"]["beni"].length)-1;
     message.delete();
     message.channel.send(`${bdd_gif["database"]["beni"][hasard(0,maxtab)]}`);
 }
