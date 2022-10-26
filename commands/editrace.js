@@ -71,7 +71,6 @@ module.exports.run = async (bot, message, args) =>
         saveBDD("./bdd/bot-war.json", bdd_botwar);
 
         const response = makeBotWarResponse(id_channel, raceData, nameMap);
-        console.log(response);
         message.channel.send(response);
         
     }

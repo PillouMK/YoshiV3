@@ -47,5 +47,5 @@ module.exports.run = async (bot, message, args) =>
 
 
 module.exports.config = {
-    name: "setfc"
+    name: "set_fc"
 }

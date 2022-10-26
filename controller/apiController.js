@@ -124,10 +124,71 @@ const getPlayerById = async (idPlayer) => {
     return player
 }
 
+const postTimetrial = async (idPlayer, idMap, time, isShroomless = false) => {
+    const timetrial = await axios.post(
+        `${API_URL}/timetrial`,
+        {
+            idMap : idMap,
+            idPlayer : idPlayer,
+            time : time,
+            isShroomless : isShroomless
+        },
+        {
+            headers : header,
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return timetrial;
+}
+
+const patchTimetrial = async (idPlayer, idMap, time, isShroomless = false) => {
+    let isShroomlessParam = !isShroomless ? 0 : 1;
+    console.log(`${API_URL}/timetrial/${idMap}/${idPlayer}/${isShroomlessParam}`)
+    const timetrial = await axios.patch(
+        `${API_URL}/timetrial/${idMap}/${idPlayer}/${isShroomlessParam}`,
+        {
+                time : time   
+        },
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    console.log(timetrial)
+    return timetrial;
+}
+
 module.exports = {
+    // GET
     getTimetrialsByMap,
     getAllMaps,
     getTimetrialsByPlayer,
     getProjectMapByRoster,
-    getPlayerById
+    getPlayerById,
+    // POST
+    postTimetrial,
+    // Patch
+    patchTimetrial
 }
