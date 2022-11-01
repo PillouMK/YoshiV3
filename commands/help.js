@@ -1,6 +1,12 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Message} message 
+ * @param {Array} args 
+ */
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -19,7 +25,7 @@ module.exports.run = async (bot, message, args) =>
                 value: "Ajoute une course, \"X\" correspond aux 6 places de l'équipe, \"Y\" à la map",
                 },
                 {
-                name: "**!er N MAP X X X X X X**",
+                name: "**!er X X X X X X N MAP**",
                 value: "Permet d'éditer une course, \"N\" est le numéro de la course, \"MAP\" la map et \"X\" les 6 placements",
                 },
                 {
@@ -64,81 +70,57 @@ module.exports.run = async (bot, message, args) =>
                 } 
             }
         };
-        const msg3 = {
+       const msg3 = {
             embed: {
                 color: 3066993,
-                title: "__**Commandes fun et ajout**__",
+                title: "__**Commande Line up **__",
                 fields: [
                     {
-                    name: "**!quote**",
-                    value: "Renvoi une quote de la YF",
+                    name: "**!can [horaire]**",
+                    value: "Permet de s'enregistrer pour l'horaire voulu (possibilité de mettre plusieurs horaires)",
                     },
                     {
-                    name: "**!setquote quote**",
-                    value: "Enregistre une quote dans la base de donnée, quote correspond à la phrase",
-                    },
-                    {
-                    name: "**!béni**",
-                    value: "Renvoi une quote de béni",
-                    },
-                    {
-                    name: "**!setbeni quote**",
-                    value: "Enregistre une quote de béni dans la base de donnée, quote correspond à la nouvelle phrase de béni",
-                    },
-                    {
-                    name: "**!gif**",
-                    value: "Renvoi un GIF de la base de donnée",
-                    },
-                    {
-                    name: "**!setgif [lien du gif]**",
-                    value: "Enregistre un gif, il faut renseigné le lien du gif",
-                    },
-                    {
-                    name: "**!kpop**",
-                    value: "Renvoi un même en lien avec la Kpop",
-                    }
-                ],
-                footer: {
-                    text: `Guide commandes fun | TOUT ABUS D'AJOUT SERA SANCTIONNÉ`,
-                } 
-            }
-        };
-       const msg4 = {
-            embed: {
-                color: 3066993,
-                title: "__**Commande Line up (à venir)**__",
-                fields: [
-                    {
-                    name: "**!c [horaire]**",
-                    value: "Permet de s'enregistrer pour l'horaire voulu",
-                    },
-                    {
-                    name: "**!c @membre [horaire]**",
+                    name: "**!can @membre [horaire]**",
                     value: "Permet d'enregistrer le membre mentionné pour un horaire voulu",
                     },
                     {
-                    name: "**!m [horaire]**",
-                    value: "Permet de s'enregistrer pour l'horaire voulu en tant que maybe",
+                    name: "**!maybe [horaire]**",
+                    value: "Permet de s'enregistrer pour l'horaire voulu en tant que maybe (possibilité de mettre plusieurs horaires)",
                     },
                     {
                     name: "**!m @membre [horaire]**",
                     value: "Permet d'enregistrer le membre mentionné pour un horaire voulu en tant que maybe",
                     },
                     {
-                    name: "**!d [horaire]**",
-                    value: "Permet de se désister d'un horaire",
+                    name: "**!drop [horaire]**",
+                    value: "Permet de se désister d'un horaire (un seul horaire par commande)",
                     },
                     {
                     name: "**!d @membre [horaire]**",
-                    value: "Permet de désister le membre mentionné d'un horaire",
+                    value: "Permet de désister le membre mentionné d'un horaire (un seul horaire par commande)",
+                    },
+                ],
+                footer: {
+                    text: `Guide line up`,
+                } 
+            }
+        };
+        const msg4 = {
+            embed: {
+                color: 3066993,
+                title: "__**Commande Timetrial **__",
+                fields: [
+                    {
+                    name: "**!set_tt [MAP] [TIME]**",
+                    value: "Permet d'enregistrer un nouveau temps'",
                     },
                     {
-                    name: "**!delete lu**",
-                    value: "Permet de détrurie toutes les line up (à utiliser minuit passé)",
+                    name: "**!classement [MAP]**",
+                    value: "Permet de visionner un classement de la map [MAP]",
                     }
                 ],
                 footer: {
-                    text: `Guide line up | PROCHAINEMENT`,
+                    text: `Guide Timetrial`,
                 } 
             }
         };
@@ -146,16 +128,16 @@ module.exports.run = async (bot, message, args) =>
             user.send("__**Guide des commandes de YoshiV2**__\n");
         });
         bot.users.fetch(message.author.id, false).then((user) => {
-        user.send(msg1);
+            user.send({embeds: [msg1]});
         });
         bot.users.fetch(message.author.id, false).then((user) => {
-            user.send(msg2);
+            user.send({embeds: [msg2]});
         });
         bot.users.fetch(message.author.id, false).then((user) => {
-            user.send(msg3);
+            user.send({embeds: [msg3]});
         });
         bot.users.fetch(message.author.id, false).then((user) => {
-            user.send(msg4);
+            user.send({embeds: [msg4]});
         });
 }
 

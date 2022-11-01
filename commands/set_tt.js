@@ -67,7 +67,6 @@ module.exports.run = async (bot, message, args) =>
             });
             updateClassementTimetrial(bot, false);
         } else {
-            console.log("test", post.data);
             message.reply({
                 content : `erreur : ${post.data}`
             })

@@ -19,20 +19,20 @@ module.exports.run = async (bot, message, args) =>
         
        if(args[1] === "YF" || args[1] === "yf")
        {
-           bdd_botwar["botwar"][id_channel]["team1"]["PenaYF"]          ++;
-           bdd_botwar["botwar"][id_channel]["team1"]["TotalYF"]         -= 20;
+           bdd_botwar["botwar"][id_channel]["team1"]["penaYF"]          ++;
+           bdd_botwar["botwar"][id_channel]["team1"]["totalYF"]         -= 20;
            bdd_botwar["botwar"][id_channel]["paramWar"]["totaleDiff"]   -= 20;
 
-           let team1 = bdd_botwar["botwar"][id_channel]["team1"]["NameTeam"];
+           let team1 = bdd_botwar["botwar"][id_channel]["team1"]["nameTeam"];
            message.channel.send("Pénalité bien ajouté à la "+team1);
        }
        else if(args[1] === "adv" || args[1] === "ADV")
         {
-            bdd_botwar["botwar"][id_channel]["team2"]["PenaADV"]        ++;
-            bdd_botwar["botwar"][id_channel]["team2"]["TotalADV"]       -= 20;
+            bdd_botwar["botwar"][id_channel]["team2"]["penaADV"]        ++;
+            bdd_botwar["botwar"][id_channel]["team2"]["totalADV"]       -= 20;
             bdd_botwar["botwar"][id_channel]["paramWar"]["totaleDiff"]  += 20;
             
-            let team2 = bdd_botwar["botwar"][id_channel]["team2"]["NameTeam"];
+            let team2 = bdd_botwar["botwar"][id_channel]["team2"]["nameTeam"];
             message.channel.send("Pénalité bien ajouté à la "+team2);
         }
         else

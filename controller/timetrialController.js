@@ -1,6 +1,7 @@
 const { getAllPlayer } = require("../controller/apiController");
 const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder , ButtonStyle, ComponentType } = require('discord.js');
 const { addBlank } = require("../fonctions");
+const settings = require("../bdd/settings.json");
 
 /**
  * 
@@ -8,8 +9,8 @@ const { addBlank } = require("../fonctions");
  */
 
  const updateClassementTimetrial = async (bot, isMobile = false) => {
-    const channel = await bot.channels.fetch('1034849902888497224');
-    const msg = await channel.messages.fetch('1034852692687859752');
+    const channel = await bot.channels.fetch(settings.channelRankings);
+    const msg = await channel.messages.fetch(settings.rankingTimetrials);
     const file = new AttachmentBuilder("./image/LaYoshiFamily.png");
 
     let classement = await getAllPlayer();

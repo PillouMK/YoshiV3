@@ -9,7 +9,7 @@ const bdd_botwar    = require("../bdd/bot-war.json");
 // require methods
 const { saveBDD } = require('../fonctions');
 const { postProjectMap } = require('../controller/apiController');
-
+const { updateProjectMapRanking } = require("../controller/projectMapController");
 /**
  * 
  * @param {Discord.Client} bot 
@@ -61,8 +61,15 @@ module.exports.run = async (bot, message, args) =>
                 scoreMaps.push(scoreMap);
             });
             console.log(scoreMatch, idRoster, scoreMaps);
-            let projectMap = await postProjectMap(scoreMaps, scoreMatch, idRoster)
-            message.channel.send({content: "Sauvegarde des données effectuées"});
+            let projectMap = await postProjectMap(scoreMaps, scoreMatch, idRoster);
+            if(projectMap.statusCode === 201) {
+                message.channel.send({content: "Sauvegarde des données effectuées"});
+                updateProjectMapRanking(bot, idRoster);
+            } else {
+                message.channel.send({content: "Une erreur est survenue lors de la sauvegarde des données"});
+                console.log(projectMap);
+            }
+            
         } else {
         message.channel.send({content: "Pas de sauvegardes"});
         }

@@ -1,8 +1,8 @@
-const Discord = require('Discord.js');
+const Discord = require('discord.js');
 const { getProjectMapByRoster } = require("../controller/apiController");
 const { addBlank } = require("../fonctions");
 const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
-
+const settings = require("../bdd/settings.json");
 /**
  * 
  * @param {Discord.Client} bot 
@@ -10,8 +10,10 @@ const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, Button
 
 
 const updateProjectMapRanking = async (bot, idRoster) => {
-    const channel = await bot.channels.fetch('1034849902888497224');
-    const msg = await channel.messages.fetch("1036753836754358402");
+    let idMsg = (idRoster === "YFG") ? settings.rankingYFG : settings.rankingYFO;
+    const color = (idRoster === "YFG") ? 0x2ecc71 : 0x3498db;
+    const channel = await bot.channels.fetch(settings.channelRankings);
+    const msg = await channel.messages.fetch(idMsg);
     const file = new AttachmentBuilder("./image/LaYoshiFamily.png");
     let iteration = 10;
     let month = 6;
@@ -20,12 +22,13 @@ const updateProjectMapRanking = async (bot, idRoster) => {
 
     let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
     console.log(projectMap);
-    let projectMapValidEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+    let projectMapValidEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
     let buttons = makeListButton(isMobile, month, iteration, showNoValidData);
 
     const messageRecap = (idRoster, month, iteration, showNoValidData) => {
+        let saut2ligne = ".\n\n\n";
         let endMsg = showNoValidData ? "Affichage des données valides et non valides" : "Affichage des données valides uniquement"
-        return `ProjectMap ${idRoster}, données des ${month} mois, données jugées valides à partir de ${iteration} itérations\n${endMsg}`
+        return `${saut2ligne}**ProjectMap ${idRoster} : ** données des ${month} mois, données jugées valides à partir de ${iteration} itérations\n${endMsg}`
     }
 
     msg.edit({ content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [projectMapValidEmbed], files: [file], components: [buttons] });
@@ -42,7 +45,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             iteration = 10;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
         }
@@ -59,7 +62,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             month = 3;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
         }
@@ -67,7 +70,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             month = 6;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
         }
@@ -75,7 +78,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             isMobile = !isMobile;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
         }
@@ -83,7 +86,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             isMobile = !isMobile;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
         }
@@ -91,7 +94,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             showNoValidData = !showNoValidData;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));   
         }
@@ -99,7 +102,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             showNoValidData = !showNoValidData;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
         }
@@ -113,12 +116,12 @@ const updateProjectMapRanking = async (bot, idRoster) => {
 }
 
 
-const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData) => {
+const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color) => {
 
     if (projectMap.statusCode == 404) {
         if (isMobile) {
             let projectMapRank = new EmbedBuilder()
-                .setColor(0x1f8b4c)
+                .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(` ProjectMap ${idRoster} `)
                 .addFields({ name: `__**Données valides :**__`, value: `Aucune données valides`, inline: false })
@@ -128,7 +131,7 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData) => {
             return projectMapRank;
         } else {
             let projectMapRank = new EmbedBuilder()
-                .setColor(0x1f8b4c)
+                .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(`----------------- ProjectMap ${idRoster} -----------------`)
                 .addFields({ name: `__**Données valides :**__`, value: `Aucune données valides`, inline: false })
@@ -169,7 +172,7 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData) => {
             });
 
             projectMapRank
-                .setColor(0x1f8b4c)
+                .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(`----------------- ProjectMap ${idRoster} -----------------`)
                 .addFields({ name: `.`, value: `__**Données valides :**__`, inline: false })
@@ -180,7 +183,7 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData) => {
                 .setTimestamp(Date.now());
         } else {
             projectMapRank
-                .setColor(0x1f8b4c)
+                .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(`----------------- ProjectMap ${idRoster} -----------------`)
                 .addFields({ name: `__**Données valides :**__`, value: `Aucune données valides`, inline: false })
@@ -252,7 +255,7 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData) => {
                 field += `\`${index + 1}${space} : ${element.idMap} | ${element.score} pts | ${element.iteration}\`\n`;
             }); 
             projectMapRank
-                .setColor(0x1f8b4c)
+                .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(` ProjectMap ${idRoster} `)
                 .addFields({ name: `.`, value: `__**Données valides :**__`, inline: false })
@@ -261,7 +264,7 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData) => {
                 .setTimestamp(Date.now());
         } else {
             projectMapRank
-                .setColor(0x1f8b4c)
+                .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(` ProjectMap ${idRoster} `)
                 .addFields({ name: `__**Données valides :**__`, value: `Aucune données valides`, inline: false })

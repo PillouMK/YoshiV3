@@ -17,7 +17,7 @@ const bdd_lineup = require("./bdd/lineup.json");
 const { saveBDD, hasard } = require('./fonctions');
 const { updateClassementTimetrial } = require("./controller/timetrialController");
 const { playerAddInGuild, playerRosterChange} = require("./controller/playerController");
-const { updateProjectMapRanking } = require("./controller/projectMapController")
+const { updateProjectMapRanking } = require("./controller/projectMapController");
 require('dotenv').config();
 const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder , ButtonStyle, ComponentType } = require('discord.js');
 
@@ -48,10 +48,11 @@ bot.on("ready", async () =>
 {
     console.log('Bot lancé');
     bot.user.setStatus("online");
-    bot.user.setActivity("J'arrive bientôt");
+    bot.user.setActivity("YoshiV3");
     deleteAllLineUp();
     updateClassementTimetrial(bot, false);
     updateProjectMapRanking(bot, "YFG");
+    updateProjectMapRanking(bot, "YFO");
     
 })
 
