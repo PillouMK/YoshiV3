@@ -4,7 +4,7 @@ const settings = require("./bdd/settings.json");
 
     // Sauvegarde des fichier json
     function saveBDD(chemin, require) {
-    fs.writeFile(chemin, JSON.stringify(require, null, 4), (err) =>
+    fs.writeFileSync(chemin, JSON.stringify(require, null, 4), (err) =>
     {
         if(err) console.log("Une erreur est survenue lors de la sauvegarde de : "+chemin+ "\n"+err.message);
         else console.log("Sauvegarde effectué pour : "+chemin);
