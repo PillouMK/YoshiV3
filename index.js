@@ -1,22 +1,31 @@
-const Discord       = require('discord.js');
-const fs            = require('fs');
-const bot           = new Discord.Client({
+const Discord = require('discord.js');
+const fs = require('fs');
+const bot = new Discord.Client({
     intents: [
         Discord.GatewayIntentBits.DirectMessages,
         Discord.GatewayIntentBits.Guilds,
         Discord.GatewayIntentBits.GuildMessages,
         Discord.GatewayIntentBits.GuildBans,
         Discord.GatewayIntentBits.MessageContent,
-        Discord.GatewayIntentBits.GuildMessageReactions
+        Discord.GatewayIntentBits.GuildMessageReactions,
+        Discord.GatewayIntentBits.GuildMembers,
+        Discord.GatewayIntentBits.GuildPresences
     ]
   });
-const settings      = require("./bdd/settings.json");
-const bdd_lineup    = require("./bdd/lineup.json");
+
+const bdd_lineup = require("./bdd/lineup.json");
 const { saveBDD, hasard } = require('./fonctions');
+const { updateClassementTimetrial } = require("./controller/timetrialController");
+const { playerAddInGuild, playerRosterChange} = require("./controller/playerController");
+const { updateProjectMapRanking } = require("./controller/projectMapController")
+require('dotenv').config();
+const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder , ButtonStyle, ComponentType } = require('discord.js');
 
-bot.login(settings.token);
-bot.commands        = new Discord.Collection();
 
+bot.login(process.env.token);
+bot.commands = new Discord.Collection();
+
+    
 fs.readdir("./commands/", (err, files) =>
 {
     if (err) console.log(err);
@@ -39,9 +48,23 @@ bot.on("ready", async () =>
 {
     console.log('Bot lancé');
     bot.user.setStatus("online");
-    bot.user.setActivity("Holiday !!!");
+    bot.user.setActivity("J'arrive bientôt");
     deleteAllLineUp();
+    updateClassementTimetrial(bot, false);
+    updateProjectMapRanking(bot, "YFG");
+    
 })
+
+bot.on('guildMemberAdd', async (member) => {
+    // Add new player to databse if don't exist
+    playerAddInGuild(bot, member);
+});
+
+
+
+bot.on("guildMemberUpdate", (oldMember, newMember) => {
+    playerRosterChange(oldMember, newMember);
+});
 
 bot.on("messageCreate", async message => 
 {
@@ -102,6 +125,7 @@ function deleteAllLineUp()
         saveBDD("./bdd/lineup.json", bdd_lineup);
     }
 }
+
 
 setInterval(() => {
     let index = hasard(1,6);

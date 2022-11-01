@@ -14,13 +14,21 @@ const { saveBDD, adaptHour } = require('../fonctions');
 // Regex pattern
 const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
 
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Message} message 
+ * @param {Array} args 
+ * @param {User} membreObject
+ */
 
 module.exports.run = async (bot, message, args) =>
 {
 
     let membre;
-    let membreObject;
     let horaireList = [];
+    let horaire = (args[1] != undefined) ? args[1] : undefined;
+    let isValid = false;
 
     // console.log(message.mentions.members.first());
     if(message.mentions.members.first())
@@ -30,56 +38,48 @@ module.exports.run = async (bot, message, args) =>
         membre = message.member.user;
     }
 
+    if(args.length > 2) {
+        message.channel.send({content : `Tu ne peux drop que d'un horaire à la fois`});
+    }
+
     // Enregistrement des horaires
-    for(element in args){
+    if(horaire != undefined){
         if(message.author.id === "156445194861019136") {
-                args[element] = (parseInt(args[element]) + 1).toString()
+            horaire = (parseInt(horaire) + 1).toString()
             }
-        if(numberTest.test(args[element]) && args[element].length == 2){
-                horaireList.push(args[element]);
+        if(numberTest.test(horaire) && horaire.length == 2){
+            isValid = true;
         }
     }
 
-    membreObject = new User(membre.id, membre.username);
+    const membreObject = new User(membre.id, membre.username, true, true);
     
     // Vérif nombre arguments
-    if(horaireList.length > 0)
+    if(isValid)
     {
-        horaireList.forEach(element => {
-            let timeStamp = adaptHour(element, settings.decalageHoraire);
+            let timeStamp = adaptHour(horaire, settings.decalageHoraire);
     
-            if(bdd_lineup[element])
+            if(bdd_lineup[horaire])
             {
                 // Vérif si joueur déjà enregistré
-                if(bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id) != -1)
+                if(bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id) != -1)
                 {
-                    let index = bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id);
-                    bdd_lineup[element]["can"].splice(index, 1);
-                    message.channel.send(membreObject.name+ " a bien été retiré pour "+"<t:"+timeStamp+":t> !");
+                    let index = bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id);
+                    bdd_lineup[horaire]["lu"].splice(index, 1);
+                    message.channel.send({content : `${membreObject.name} a bien été retiré pour <t:${timeStamp}:t> !`});
                     saveBDD("./bdd/lineup.json", bdd_lineupRequire);
-                } 
-                else if(bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id) != -1)
-                {
-                    let index = bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id);
-                    bdd_lineup[element]["maybe"].splice(index, 1);
-                    message.channel.send(membreObject.name+ " a bien été retiré pour "+"<t:"+timeStamp+":t> !");
-                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
-                }
-                else {
-                    message.channel.send(membreObject.name+ " a bien été retiré pour "+"<t:"+timeStamp+":t> !");;
-                }
-                
+                } else {
+                    message.channel.send({content :  `${membreObject.name} n'est pas dans la line up de <t:${timeStamp}:t>`})
+                }          
             }
-            // créer la line up car elle existe pas
             else 
             {
-                message.reply("Il n'y a pas de line up pour "+"<t:"+timeStamp+":t>");
-            }
-        });
+                message.channel.send("Il n'y a pas de line up pour "+"<t:"+timeStamp+":t>");
+            }     
     }
     else
     {
-        message.reply("Aucun horaire valide");
+        message.channel.send("Aucun horaire valide");
     }
     message.delete();
 }

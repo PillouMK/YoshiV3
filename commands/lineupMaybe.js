@@ -14,15 +14,23 @@ const { saveBDD, adaptHour } = require('../fonctions');
 // Regex pattern
 const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
 
-
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Message} message 
+ * @param {Array} args 
+ * @param {User} membreObject
+ */
 
 module.exports.run = async (bot, message, args) =>
 {
 
     let membre;
-    let mute = false;
-    let membreObject;
     let horaireList = [];
+    let mute = false;
+
+    // maybe
+    let isCan = false;
 
     // Enregistrement du membre
     if(message.mentions.members.first())
@@ -41,7 +49,7 @@ module.exports.run = async (bot, message, args) =>
                 args[element] = (parseInt(args[element]) + 1).toString();
             }
         }
-        if(numberTest.test(args[element]) && args[element].length == 2){      
+        if(numberTest.test(args[element]) && args[element].length == 2){
             horaireList.push(args[element]);
         }
         if(args[element].toUpperCase() == "MUTE"){
@@ -49,58 +57,57 @@ module.exports.run = async (bot, message, args) =>
         }
     }
     
-    membreObject = new User(membre.id, membre.username, mute);
- 
+    const membreObject = new User(membre.id, membre.username, mute, isCan);
+
+    
     // Vérif nombre arguments
     if(horaireList.length > 0)
     {
         // Parcours des horaires
-        horaireList.forEach(element => {
-            let timeStamp = adaptHour(element, settings.decalageHoraire);
-            if(bdd_lineup[element])
+        horaireList.forEach(horaire => {
+            let timeStamp = adaptHour(horaire, settings.decalageHoraire);
+            
+            if(!bdd_lineup[horaire])
             {
-                if(bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id) != -1){
-                    let index = bdd_lineup[element]["can"].findIndex(x => x.id === membreObject.id)
-                    bdd_lineup[element]["can"].splice(index, 1);
-                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
-                }
-                // Vérif si joueur déjà enregistré
-                if(bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id) == -1)
-                {
-                    // Enregistre le joueur
-                    bdd_lineup[element]["maybe"].push(membreObject);
-                    message.channel.send(membreObject.name+ " a bien été ajouté (maybe) pour "+"<t:"+timeStamp+":t> !");
-                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
-                    
-                } else if (bdd_lineup[element]["maybe"][bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id)].mute != mute) {
-                    bdd_lineup[element]["maybe"][bdd_lineup[element]["maybe"].findIndex(x => x.id === membreObject.id)].mute = mute;
-                    let msgMute = mute ?  "mute" : "unmute";
-                    message.channel.send(membreObject.name+" est maintenant "+ msgMute +" pour <t:"+timeStamp+":t>");
-                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
-                }
-                
-                else {
-                    message.channel.send(membreObject.name+" est déjà dans la line up de "+"<t:"+timeStamp+":t>");
-                }
-                
-            }
-            // créer la line up car elle existe pas
-            else 
-            {
-                bdd_lineup[element] = {
-                    "can": [],
-                    "maybe": [],
+                bdd_lineup[horaire] = {
+                    lu: [],
                 }
                 // Enregistre le joueur ayant créé la line up
-                bdd_lineup[element]["maybe"].push(membreObject);
-                message.channel.send(membreObject.name+ " a bien été ajouté (maybe) pour "+"<t:"+timeStamp+":t> !");
+                bdd_lineup[horaire]["lu"].push(membreObject);
+                message.channel.channel.send(`${membreObject.name} a bien été ajouté pour <t:${timeStamp}:t>`);
                 saveBDD("./bdd/lineup.json", bdd_lineupRequire);
+
+            } else {
+                if(bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id) != -1){
+                    let index = bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id)
+                    if(!bdd_lineup[horaire]["lu"][index].isCan && bdd_lineup[horaire]["lu"][index].mute == membreObject.mute) {
+                        message.channel.send({content: `${membreObject.name} est déjà dans la line up de <t:"${timeStamp}:t> (em maybe)`});
+                        return;
+                    }
+                    if(!bdd_lineup[horaire]["lu"][index].isCan && bdd_lineup[horaire]["lu"][index].mute != membreObject.mute) {
+                        bdd_lineup[horaire]["lu"][index].mute = membreObject.mute
+                        let isMute = membreObject.mute ? "mute pour" : "unmute pour"
+                        message.channel.send({content: `${membreObject.name} est désormais ${isMute} <t:${timeStamp}:t>`});
+                        saveBDD("./bdd/lineup.json", bdd_lineupRequire);
+                        return;
+                    }
+                    bdd_lineup[horaire]["lu"][index].isCan = membreObject.isCan
+                    message.channel.send({content: `${membreObject.name} passe en maybe pour <t:${timeStamp}:t>`});
+                    saveBDD("./bdd/lineup.json", bdd_lineupRequire);
+                    return;
+                }
+                bdd_lineup[horaire]["lu"].push(membreObject);
+                let msgIsMute = membreObject.mute ? "en mute" : ""
+                message.channel.send({content : `${membreObject.name} a bien été ajouté (maybe) pour <t:${timeStamp}:t> ${msgIsMute}`});
+                saveBDD("./bdd/lineup.json", bdd_lineupRequire);
+
             }
+            
         })
     }
     else
     {
-        message.reply("Aucun horaire valide n'a été fourni");
+        message.channel.send("Aucun horaire valide n'a été fourni");
     }
     message.delete();
 }

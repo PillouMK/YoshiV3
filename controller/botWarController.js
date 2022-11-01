@@ -48,15 +48,15 @@ const placeToPoint = (arrayPlace) => {
 const makeBotWarResponse = (id_channel, race, nameMap) => {
 
     let scoreYF         = bdd_botwar["botwar"][id_channel]["team1"]["recapScoreYF"][race]; 
-    let penaYF          = bdd_botwar["botwar"][id_channel]["team1"]["PenaYF"];
-    let team1           = bdd_botwar["botwar"][id_channel]["team1"]["NameTeam"];
-    let newTotalYF      = bdd_botwar["botwar"][id_channel]["team1"]["TotalYF"];
+    let penaYF          = bdd_botwar["botwar"][id_channel]["team1"]["penaYF"];
+    let team1           = bdd_botwar["botwar"][id_channel]["team1"]["nameTeam"];
+    let newTotalYF      = bdd_botwar["botwar"][id_channel]["team1"]["totalYF"];
     let recapYF         = bdd_botwar["botwar"][id_channel]["team1"]["recapScoreYF"];
 
     let scoreAdv        = bdd_botwar["botwar"][id_channel]["team2"]["recapScoreADV"][race];
-    let penaADV         = bdd_botwar["botwar"][id_channel]["team2"]["PenaADV"]; 
-    let team2           = bdd_botwar["botwar"][id_channel]["team2"]["NameTeam"];
-    let newTotalAdv     = bdd_botwar["botwar"][id_channel]["team2"]["TotalADV"];
+    let penaADV         = bdd_botwar["botwar"][id_channel]["team2"]["penaADV"]; 
+    let team2           = bdd_botwar["botwar"][id_channel]["team2"]["nameTeam"];
+    let newTotalAdv     = bdd_botwar["botwar"][id_channel]["team2"]["totalADV"];
     let recapADV        = bdd_botwar["botwar"][id_channel]["team2"]["recapScoreADV"];
 
     let raceCount       = bdd_botwar["botwar"][id_channel]["paramWar"]["race"];   

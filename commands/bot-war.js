@@ -20,6 +20,7 @@ const { getAllMaps } = require("../controller/apiController");
 
 module.exports.run = async (bot, message, args) =>
 {
+    if(args.length != 8) return message.reply({content : `Nombre de paramètre incorrects (reçu ${args.length-1}, attendu : 7)`})
     const id_channel = message.channel.id;
     const nameMap = args[7];
     const places = [args[1],args[2],args[3],args[4],args[5],args[6]];
@@ -52,12 +53,12 @@ module.exports.run = async (bot, message, args) =>
             return;
         }
     } else {
-        message.reply("Erreur API, je ne peux pas vérifier l'id de la map");
+        message.reply("Erreur API, je ne peux pas vérifier l'id de la map, je désactive la sauvegarde des données");
+        bdd_botwar.botwar[id_channel].paramWar.saveStats = false;
     }
     
         
     let scoreYF = placeToPoint(places);
-    console.log("scoreYF", scoreYF)
     if(!scoreYF)
     {
         message.reply(`${args[1]}, ${args[2]}, ${args[3]}, ${args[4]}, ${args[5]}, ${args[6]} : une des places n'est pas comprises entre 1 et 12`);
@@ -66,13 +67,13 @@ module.exports.run = async (bot, message, args) =>
     let countdiff   = 0;
     let scoreAdv    = 82-scoreYF;
     let scoreDiff   = scoreYF-scoreAdv;
-    let penaYF      = bdd_botwar["botwar"][id_channel]["team1"]["PenaYF"];
-    let penaADV     = bdd_botwar["botwar"][id_channel]["team2"]["PenaADV"];
+    let penaYF      = bdd_botwar["botwar"][id_channel]["team1"]["penaYF"];
+    let penaADV     = bdd_botwar["botwar"][id_channel]["team2"]["penaADV"];
 
     bdd_botwar["botwar"][id_channel]["team1"]["recapScoreYF"][race]     = scoreYF;
-    bdd_botwar["botwar"][id_channel]["team1"]["TotalYF"]                += scoreYF;
+    bdd_botwar["botwar"][id_channel]["team1"]["totalYF"]                += scoreYF;
     bdd_botwar["botwar"][id_channel]["team2"]["recapScoreADV"][race]    = scoreAdv;
-    bdd_botwar["botwar"][id_channel]["team2"]["TotalADV"]               += scoreAdv;
+    bdd_botwar["botwar"][id_channel]["team2"]["totalADV"]               += scoreAdv;
     bdd_botwar["botwar"][id_channel]["paramWar"]["recapMap"][race]      = nameMap
     bdd_botwar["botwar"][id_channel]["paramWar"]["recapDiff"][race]     = scoreDiff;
         
@@ -84,7 +85,7 @@ module.exports.run = async (bot, message, args) =>
     bdd_botwar["botwar"][id_channel]["paramWar"]["totaleDiff"] = countdiff;
     bdd_botwar["botwar"][id_channel]["paramWar"]["race"]++;
 
-    await saveBDD("./bdd/bot-war.json", bdd_botwar);
+    saveBDD("./bdd/bot-war.json", bdd_botwar);
         
     const response = makeBotWarResponse(id_channel, race, nameMap, bdd_botwar);
     message.channel.send({content : response});

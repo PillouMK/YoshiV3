@@ -85,6 +85,11 @@ module.exports.run = async (bot, message, args) =>
                 }
                     
             });
+
+            collectorButton.on('end', async i => {
+                console.log("now");
+                messageReaction.edit({components: [] });
+            })
         }
         );
        
@@ -105,6 +110,7 @@ const timetrialEmbedMessage = async (idMap, isMobile, isShroomless, idUser, idRo
     }
   
     const infoMap = timetrials.data.infoMap;
+    
     const timetrialsArray = isShroomless ? timetrials.data.timetrials.arrayShroomless : timetrials.data.timetrials.arrayShroom
 
     // word for classement

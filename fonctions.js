@@ -32,5 +32,20 @@ const settings = require("./bdd/settings.json");
         return (now/1000);   
     }
 
+    const addBlank = (string, number, isAfter = false) => {
+        if(!isAfter) {
+            while(string.length < number) {
+                string = ` ` + string;
+            }
+            return string;
+        } else {
+            while(string.length < number) {
+                string =  string + ` `;
+            }
+            return string;
+        }
+        
+    }
 
-module.exports = {saveBDD, deleteAllLineUp, hasard, adaptHour};
+
+module.exports = {saveBDD, deleteAllLineUp, hasard, adaptHour, addBlank};

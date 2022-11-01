@@ -1,5 +1,155 @@
 {
     "lineUp": {
-        
+        "11": {
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "12": {
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "13": {
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "14": {
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "15": {
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "16": {
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "21": {
+            "lu": [
+                {
+                    "id": "283610717217619968",
+                    "name": "Yugo",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "282651327581126656",
+                    "name": "Yora",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "312668609321107456",
+                    "name": "Équinox",
+                    "roster": "Odyssey",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "129353989010620417",
+                    "name": "Alexxx",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "707282826738794606",
+                    "name": "nehca",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "396700968949121025",
+                    "name": "Faker3",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "691941209681297439",
+                    "name": "Chacha",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "559792713080373249",
+                    "name": "skyy",
+                    "mute": false,
+                    "isCan": false
+                }
+            ]
+        },
+        "22": {
+            "lu": [
+                {
+                    "id": "493804019354173442",
+                    "name": "Yasn",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        },
+        "23": {
+            "lu": [
+                {
+                    "id": "312668609321107456",
+                    "name": "Équinox",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
+        }
     }
-}         
+}

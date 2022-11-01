@@ -69,39 +69,6 @@
                 "recapMap": [],
                 "recapDiff": []
             }
-        },
-        "687671375955361960": {
-            "team1": {
-                "NameTeam": "a",
-                "PenaYF": 0,
-                "TotalYF": 108,
-                "recapScoreYF": [
-                    60,
-                    48
-                ]
-            },
-            "team2": {
-                "NameTeam": "b",
-                "PenaADV": 0,
-                "TotalADV": 56,
-                "recapScoreADV": [
-                    22,
-                    34
-                ]
-            },
-            "paramWar": {
-                "verifDoublon": "!race 1 2 3 8 9 11 rTT",
-                "race": 2,
-                "totaleDiff": 52,
-                "recapMap": [
-                    "rMC",
-                    "rTT"
-                ],
-                "recapDiff": [
-                    38,
-                    14
-                ]
-            }
         }
     }
 }

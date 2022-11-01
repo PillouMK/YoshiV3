@@ -77,15 +77,15 @@ const getTimetrialsByPlayer = async (idPlayer) => {
     return timetrials
 }
 
-const getProjectMapByRoster = async (idRoster, limit = 10) => {
+const getProjectMapByRoster = async (idRoster, month, iteration) => {
     let responseObject;
     const projectmap = await axios.get(
-        `${API_URL}/projectmap`,
+        `${API_URL}/projectmap/${idRoster}`,
         {
             headers : header,
             params: {
-                idRoster: idRoster,
-                limit: limit
+                month: month, 
+                iteration: iteration
             }
         }
     ).then(response => {
@@ -105,6 +105,7 @@ const getProjectMapByRoster = async (idRoster, limit = 10) => {
 }
 
 const getPlayerById = async (idPlayer) => {
+    let responseObject;
     const player = await axios.get(
         `${API_URL}/player/${idPlayer}`,
         {headers : header}
@@ -124,7 +125,29 @@ const getPlayerById = async (idPlayer) => {
     return player
 }
 
+const getAllPlayer = async () => {
+    let responseObject;
+    const player = await axios.get(
+        `${API_URL}/player`,
+        {headers : header}
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return player
+}
+
 const postTimetrial = async (idPlayer, idMap, time, isShroomless = false) => {
+    let responseObject;
     const timetrial = await axios.post(
         `${API_URL}/timetrial`,
         {
@@ -153,8 +176,8 @@ const postTimetrial = async (idPlayer, idMap, time, isShroomless = false) => {
 }
 
 const patchTimetrial = async (idPlayer, idMap, time, isShroomless = false) => {
+    let responseObject;
     let isShroomlessParam = !isShroomless ? 0 : 1;
-    console.log(`${API_URL}/timetrial/${idMap}/${idPlayer}/${isShroomlessParam}`)
     const timetrial = await axios.patch(
         `${API_URL}/timetrial/${idMap}/${idPlayer}/${isShroomlessParam}`,
         {
@@ -176,9 +199,94 @@ const patchTimetrial = async (idPlayer, idMap, time, isShroomless = false) => {
         }
         return responseObject
     });
-    console.log(timetrial)
     return timetrial;
 }
+
+const postPlayer = async (idPlayer, namePlayer, idRoster) => {
+    let responseObject;
+    const player = await axios.post(
+        `${API_URL}/player`,
+        {
+            idPlayer : idPlayer,   
+            name : namePlayer,   
+            idRoster : idRoster   
+        },
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return player;
+}
+
+const patchPlayer = async (idPlayer, namePlayer = undefined, idRoster = undefined) => {
+    let responseObject;
+    let body = {};
+    if(namePlayer != undefined) body.name = namePlayer
+    if(idRoster != undefined) body.idRoster = idRoster
+    console.log(body);
+    const player = await axios.patch(
+        `${API_URL}/player/${idPlayer}`,
+        body,
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return player;
+}
+
+const postProjectMap = async (scoresMaps, scoreMatch, idRoster) => {
+    let responseObject;
+    const projectMap = await axios.post(
+        `${API_URL}/projectmap`,
+        {
+            scoresMaps : scoresMaps,   
+            scoreMatch : scoreMatch,   
+            idRoster : idRoster   
+        },
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return projectMap;
+}
+
+
 
 module.exports = {
     // GET
@@ -187,8 +295,12 @@ module.exports = {
     getTimetrialsByPlayer,
     getProjectMapByRoster,
     getPlayerById,
+    getAllPlayer,
     // POST
     postTimetrial,
+    postPlayer,
+    postProjectMap,
     // Patch
-    patchTimetrial
+    patchTimetrial,
+    patchPlayer
 }

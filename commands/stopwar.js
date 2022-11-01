@@ -4,10 +4,18 @@ const fs        = require('fs');
 
 // require BDD
 const bdd_botwar    = require("../bdd/bot-war.json");
-const settings      = require("../bdd/settings.json");
 
-// require classes
+
+// require methods
 const { saveBDD } = require('../fonctions');
+const { postProjectMap } = require('../controller/apiController');
+
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Message} message 
+ * @param {Array} args 
+ */
 
 module.exports.run = async (bot, message, args) =>
 {
@@ -24,15 +32,39 @@ module.exports.run = async (bot, message, args) =>
     }
     if(id_exist)
     {
-        let totalScore  = id_key[id_channel]["paramWar"]["totaleDiff"];
-        let totalYF  	= id_key[id_channel]["team1"]["TotalYF"];
-        let totalAdv  	= id_key[id_channel]["team2"]["TotalADV"];
+        let war = bdd_botwar["botwar"][id_channel];
+        if(!war.paramWar.isStoppable && war.paramWar.recapMap.length < 12) {
+            message.reply({content: "Le war n'a pas atteint 12 maps, veux-tu vraiment l'arrêter ? Si oui, réessaye"});
+            war.paramWar.isStoppable = true;
+            saveBDD("./bdd/bot-war.json", bdd_botwar);
+            return;
+        } 
+        let totalScore  = war.paramWar.totaleDiff;
+        let totalYF  	= war.team1.totalYF;
+        let totalAdv  	= war.team2.totalADV;
         if(totalScore > 0) {
-            message.channel.send("Fin du war, victoire "+totalYF+" à "+totalAdv+" (+"+totalScore+")  <:ultraYF:929784961341481031>");
+            message.channel.send({content: `Fin du war, victoire ${totalYF} à ${totalAdv} (${totalScore}) <:ultraYF:929784961341481031>`});
         } else if(totalScore < 0) {
-            message.channel.send("Fin du war, défaite "+totalYF+" à "+totalAdv+" ("+totalScore+") <:evolitoutrouge:931267504360292423>");
+            message.channel.send({content:`Fin du war, défaite ${totalYF} à ${totalAdv} (${totalScore}) <:evolitoutrouge:931267504360292423>`});
         } else {
-            message.channel.send("Fin du war, égalité "+totalYF+" à "+totalAdv+" (+"+totalScore+") <:alexxx:596506197008449536>");
+            message.channel.send({content:`Fin du war, égalité ${totalYF} à ${totalAdv} (${totalScore}) <:alexxx:596506197008449536>`});
+        }
+        if(war.paramWar.saveStats && war.paramWar.recapMap.length >= 8) {
+            const scoreMatch = totalScore;
+            const idRoster = war.team1.nameTeam;
+            let scoreMaps = [];
+            war.paramWar.recapMap.forEach((element, index) => {
+                let scoreMap = {
+                    idMap : element,
+                    scoreMap : war.paramWar.recapDiff[index]
+                }
+                scoreMaps.push(scoreMap);
+            });
+            console.log(scoreMatch, idRoster, scoreMaps);
+            let projectMap = await postProjectMap(scoreMaps, scoreMatch, idRoster)
+            message.channel.send({content: "Sauvegarde des données effectuées"});
+        } else {
+        message.channel.send({content: "Pas de sauvegardes"});
         }
         
         delete bdd_botwar["botwar"][id_channel];
@@ -40,7 +72,7 @@ module.exports.run = async (bot, message, args) =>
     }
     else
     {
-        message.channel.send("Il n'y a pas de war");
+        message.channel.send({content: "Il n'y a pas de war"});
     }
     
 }

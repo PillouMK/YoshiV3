@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { updateClassementTimetrial } = require("../controller/timetrialController");
 const { getAllMaps, postTimetrial, patchTimetrial } = require("../controller/apiController");
 /**
  * 
@@ -9,31 +10,42 @@ const { getAllMaps, postTimetrial, patchTimetrial } = require("../controller/api
 
 module.exports.run = async (bot, message, args) =>
 {
-    const testTime  = /[\d][\:|\.][\d]{2}[\.|\:][\d]{3}/;
+    const testTime  = /[\d]{1}[\:|\.][\d]{2}[\.|\:][\d]{3}/;
     const idPlayer = '' + message.author.id;
     const idMap = args[1];
     const time = args[2];
-    const isShroomLess = (args[3] != undefined && args[3] === "shroomless") ? true : false;
+    let isShroomLess = false;
+    if(args[3] != undefined) {
+        if(args[3] === "shroomless" || args[3] === "shl" ) {
+            isShroomLess = true;
+        } else {
+            message.reply({
+                content: `${args[3]} n'est pas un paramètre valide, pour indiquer shroomless écrit : **shroomless** ou **shl**`
+            });
+            return;
+        }
+    }
+     
     let mapsArray = await getAllMaps();
     
     // check if the map exist
     if(mapsArray.statusCode === 200) {
         if(mapsArray.data.findIndex(x => x.idMap === idMap) == -1) {
-            message.channel.send({
-                content : `${nameMap} n'est pas un nom de map valide`
+            message.reply({
+                content : `${idMap} n'est pas un nom de map valide`
             });
             return;
         }
     } else {
         console.log(mapsArray.data);
-        message.channel.send({
+        message.reply({
             content : `API error, contacte <@450353797450039336>`
         });
         return; 
     }
 
-    if(!testTime.test(time) && time.length !== 8) {
-        message.channel.send({
+    if(!testTime.test(time) || time.length !== 8) {
+        message.reply({
             content : "le temps doit être au format xx:xx.xxx"
         });
         return;
@@ -47,22 +59,25 @@ module.exports.run = async (bot, message, args) =>
 
     let patch = await patchTimetrial(idPlayer, idMap, timeasNumber, isShroomLess);
     if(patch.statusCode != 200) {
-        console.log(patch.data);
         let post = await postTimetrial(idPlayer, idMap, timeasNumber, isShroomLess);
         if(post.statusCode == 201) {
+            let response = isShroomLess ? `en shroomless`: `avec items`;
             message.reply({
-                content : `Nouveau temps : ${time}`
-            })
+                content : `Nouveau temps : ${time} ${response}`
+            });
+            updateClassementTimetrial(bot, false);
         } else {
-            console.log(post.data);
+            console.log("test", post.data);
             message.reply({
                 content : `erreur : ${post.data}`
             })
         }
     } else {
+        let response = isShroomLess ? "en shroomless": "avec items";
         message.reply({
-            content : `Nouveau temps : ${patch.data.newTime} (${patch.data.diff}s)\nTon ancien temps était : ${patch.data.oldTime} `
-        })
+            content : `Nouveau temps : ${patch.data.newTime} (${patch.data.diff}s) ${response}\nTon ancien temps était : ${patch.data.oldTime} `
+        });
+        updateClassementTimetrial(bot, false);
     }
 
 
