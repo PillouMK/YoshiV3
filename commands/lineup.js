@@ -123,8 +123,8 @@ const makeLineUpEmbed = async (lineUp, isMix, guild, timeStamp) => {
         for(let elt of lineUp) {
             let member = await guild.members.fetch(elt.id);
                     
-            // is member a Yoshi family player
-            if(member.roles.cache.find(role => role.id === "199252384612876289"))
+            // is member a Yoshi family player or in test player
+            if(member.roles.cache.find(role => role.id === "199252384612876289") || member.roles.cache.find(role => role.id === "425783129119260672"))
             {
                 let msgAdd = elt.isCan ? elt.name : `(${elt.name})`;
                 roster += elt.mute ? msgAdd + ":mute: / " : msgAdd+ " / ";

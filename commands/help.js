@@ -17,24 +17,28 @@ module.exports.run = async (bot, message, args) =>
             title: "__**Bot-war:**__",
             fields: [
                 {
-                name: "**!startwar X Y :**",
-                value: "Débute un war entre les teams X et Y",
+                    name: "**!startwar X Y :**",
+                    value: "Débute un war entre les teams X et Y",
                 },
                 {
-                name: "**!race X X X X X X Y**",
-                value: "Ajoute une course, \"X\" correspond aux 6 places de l'équipe, \"Y\" à la map",
+                    name: "**!race X X X X X X Y**",
+                    value: "Ajoute une course, \"X\" correspond aux 6 places de l'équipe, \"Y\" à la map",
                 },
                 {
-                name: "**!er X X X X X X N MAP**",
-                value: "Permet d'éditer une course, \"N\" est le numéro de la course, \"MAP\" la map et \"X\" les 6 placements",
+                    name: "**!er X X X X X X N MAP**",
+                    value: "Permet d'éditer une course, \"N\" est le numéro de la course, \"MAP\" la map et \"X\" les 6 placements",
                 },
                 {
-                name: "**!pena YF** ou **!pena adv**",
-                value: "Permet d'ajouter une pénalité de 20 points à l'une des équipes, YF et adv correspondent à l'équipe visée",
+                    name: "**!set_team [ROSTER]**",
+                    value: "Permet de modifier le tag de la team pour le bot-war (YFG et YFO activent la sauvegarde des données)",
                 },
                 {
-                name: "**!stopwar**",
-                value: "Met fin au war du channel courant",
+                    name: "**!pena YF** ou **!pena adv**",
+                    value: "Permet d'ajouter une pénalité de 20 points à l'une des équipes, YF et adv correspondent à l'équipe visée",
+                },
+                {
+                    name: "**!stopwar**",
+                    value: "Met fin au war du channel courant",
                 }
             ],
             footer: {
@@ -117,6 +121,10 @@ module.exports.run = async (bot, message, args) =>
                     {
                     name: "**!classement [MAP]**",
                     value: "Permet de visionner un classement de la map [MAP]",
+                    },
+                    {
+                        name: "**!new_name [name]**",
+                        value: "Permet de modifier ton pseudo pour la base de données (15 caractères limité, pas de caractères spécial ou emoji)",
                     }
                 ],
                 footer: {

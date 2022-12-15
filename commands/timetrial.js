@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) =>
     try {
         message.channel.send({embeds : [responseEmbed], components: [listButton]}).then((messageReaction) => {
             
-            const collectorButton = messageReaction.createMessageComponentCollector({ componentType: ComponentType.Button, time: 900000 });
+            const collectorButton = messageReaction.createMessageComponentCollector({ componentType: ComponentType.Button, time: 3600000 });
 
             collectorButton.on('collect', async i => { 
                 if(i.customId === "YFG") {
@@ -247,7 +247,7 @@ const makeEmbedMessage = (infoMap, fields, date, idRoster, isMobile, isShroomles
 const makeListButton = (isShroomless, isMobile, idRoster) => {
     const labelView = isMobile ? "PC" : "Mobile";
     const emoji = isMobile ? "💻" : "📱";
-    const itemLabel = !isShroomless ? "Shroomless" : "With items"
+    const itemLabel = !isShroomless ? "No items" : "With items"
     const row = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()

@@ -26,7 +26,6 @@ module.exports.run = async (bot, message, args) =>
 {
 
     let membre;
-    let horaireList = [];
     let horaire = (args[1] != undefined) ? args[1] : undefined;
     let isValid = false;
 
@@ -39,7 +38,13 @@ module.exports.run = async (bot, message, args) =>
     }
 
     if(args.length > 2) {
-        message.channel.send({content : `Tu ne peux drop que d'un horaire à la fois`});
+        if(args.length == 3 && message.mentions.members.first()) {
+            // rien faire
+        } else {
+            message.channel.send({content : `Tu ne peux drop que d'un horaire à la fois`});
+            return;
+        }
+        
     }
 
     // Enregistrement des horaires

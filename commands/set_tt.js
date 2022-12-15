@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
     const time = args[2];
     let isShroomLess = false;
     if(args[3] != undefined) {
-        if(args[3] === "shroomless" || args[3] === "shl" ) {
+        if(args[3] === "shroomless" || args[3] === "shl" ||  args[3] === "ni") {
             isShroomLess = true;
         } else {
             message.reply({

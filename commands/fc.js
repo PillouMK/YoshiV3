@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) =>
             message.channel.send(bdd_fc["friendcode"][id_author]);
         }
         else{
-            message.channel.send("Je ne connais pas ton fc, fais !setfc [fc] pour l'enregistrer");
+            message.channel.send("Je ne connais pas ton fc, fais !set_fc [fc] pour l'enregistrer");
         }
     }
     else if(args.length > 1)

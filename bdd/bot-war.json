@@ -69,6 +69,29 @@
                 "recapMap": [],
                 "recapDiff": []
             }
+        },
+        "428644679165411331": {
+            "team1": {
+                "nameTeam": "YF",
+                "penaYF": 0,
+                "totalYF": 0,
+                "recapScoreYF": []
+            },
+            "team2": {
+                "nameTeam": "HTF",
+                "penaADV": 0,
+                "totalADV": 0,
+                "recapScoreADV": []
+            },
+            "paramWar": {
+                "verifDoublon": "",
+                "saveStats": false,
+                "isStoppable": false,
+                "race": 0,
+                "totaleDiff": 0,
+                "recapMap": [],
+                "recapDiff": []
+            }
         }
     }
 }

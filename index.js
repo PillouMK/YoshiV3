@@ -64,7 +64,7 @@ bot.on('guildMemberAdd', async (member) => {
 
 
 bot.on("guildMemberUpdate", (oldMember, newMember) => {
-    playerRosterChange(oldMember, newMember);
+    playerRosterChange(bot, oldMember, newMember);
 });
 
 bot.on("messageCreate", async message => 

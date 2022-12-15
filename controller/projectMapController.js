@@ -53,7 +53,7 @@ const updateProjectMapRanking = async (bot, idRoster) => {
             iteration = 20;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData);
+            let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
             await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
             return;
@@ -229,11 +229,11 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
         return projectMapRank;
 
     } else {
+        let arrayFields = [];
         let field = "";
         let projectMapRank = new EmbedBuilder()
         
         
-
         if(projectMapRanking.projectMapValid != null) {
             let maxLengthScore = Math.max(...(projectMapRanking.projectMapValid.map(el => {
                 // transform score into string to get length
@@ -252,6 +252,10 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
                 element.iteration = addBlank(element.iteration, maxLengthIteration);
                 element.idMap = addBlank(element.idMap, maxLengthName, true);
                 let space = (index < 9) ? ` ` : "";
+                if(field.length > 900) {
+                    arrayFields.push(field);
+                    field = "";
+                }
                 field += `\`${index + 1}${space} : ${element.idMap} | ${element.score} pts | ${element.iteration}\`\n`;
             }); 
             projectMapRank
@@ -259,6 +263,10 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
                 .setThumbnail('attachment://LaYoshiFamily.png')
                 .setTitle(` ProjectMap ${idRoster} `)
                 .addFields({ name: `.`, value: `__**Données valides :**__`, inline: false })
+                arrayFields.forEach(elt => {
+                    projectMapRank.addFields({ name: `__Map :     Score :     Iteration :__`, value: elt, inline: true })
+                })
+            projectMapRank
                 .addFields({ name: `__Map :     Score :     Iteration :__`, value: field, inline: true })
                 .setFooter({ text: `project Map ${idRoster}` })
                 .setTimestamp(Date.now());
@@ -273,6 +281,7 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
         }
 
         if (showNoValidData) {
+            let arrayFields = [];
             let field = "";
 
             if(projectMapRanking.projectMapNotValid != null) {
@@ -292,11 +301,17 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
                     element.iteration = addBlank(element.iteration, maxLengthIteration);
                     element.idMap = addBlank(element.idMap, maxLengthName, true);
                     let space = (index < 9) ? ` ` : "";
+                    if(field.length > 900) {
+                        arrayFields.push(field);
+                        field = "";
+                    }
                     field += `\`${index + 1}${space} : ${element.idMap} | ${element.score} pts | ${element.iteration}\`\n`;
                 });
                 projectMapRank
                     .addFields({ name: `.`, value: `__**Données non-valides :**__`, inline: false })
-                    .addFields({ name: `__Map :     Score :     Iteration :__`, value: field, inline: true })
+                    arrayFields.forEach(elt => {
+                        projectMapRank.addFields({ name: `__Map :     Score :     Iteration :__`, value: elt, inline: true })
+                    })
             } else {
                 projectMapRank
                 .addFields({ name: `__**Données non-valides :**__`, value: `Aucune données non-valides`, inline: false })

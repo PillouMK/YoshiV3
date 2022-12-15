@@ -1,5 +1,6 @@
 const Discord  = require('discord.js');
 const { getPlayerById, postPlayer, patchPlayer } = require('./apiController');
+const { updateClassementTimetrial } = require("./timetrialController")
 const galaxy_id = "643871029210513419";
 const odyssey_id = "643569712353116170";
 
@@ -42,11 +43,12 @@ const playerAddInGuild = async (bot, member) => {
 }
 
 /**
+ * @param {Discord.Client} bot 
  * @param {Discord.GuildMember} oldMember
  * @param {Discord.GuildMember} newMember 
  */
 
-const playerRosterChange = async (oldMember, newMember) => {
+const playerRosterChange = async (bot, oldMember, newMember) => {
     console.log(oldMember.user.username);
     // if oldMember role collection is higher in size than the new one, then a role has been removed
     if (oldMember.roles.cache.size > newMember.roles.cache.size) {      
@@ -65,6 +67,7 @@ const playerRosterChange = async (oldMember, newMember) => {
                         let playerPatch = await patchPlayer(newMember.user.id, newMember.user.username, "YFO");
                         if(playerPatch.statusCode === 200) {
                             console.log(`${newMember.user.username} est désormais YFO`);
+                            updateClassementTimetrial(bot, false);
                         } else {
                             console.log("fail modif : ", playerPatch.data);
                         }
@@ -72,6 +75,7 @@ const playerRosterChange = async (oldMember, newMember) => {
                         let playerPatch = await patchPlayer(newMember.user.id, newMember.user.username, "NR");
                         if(playerPatch.statusCode === 200) {
                             console.log(`${newMember.user.username} est désormais No Roster`);
+                            updateClassementTimetrial(bot, false);
                         } else {
                             console.log("fail modif : ", playerPatch.data);
                         }
@@ -82,6 +86,7 @@ const playerRosterChange = async (oldMember, newMember) => {
                         let playerPatch = await patchPlayer(newMember.user.id, newMember.user.username, "YFG");
                         if(playerPatch.statusCode === 200) {
                             console.log(`${newMember.user.username} est désormais YFG`);
+                            updateClassementTimetrial(bot, false);
                         } else {
                             console.log("fail modif : ", playerPatch.data);
                         }
@@ -89,6 +94,7 @@ const playerRosterChange = async (oldMember, newMember) => {
                         let playerPatch = await patchPlayer(newMember.user.id, newMember.user.username, "NR");
                         if(playerPatch.statusCode === 200) {
                             console.log(`${newMember.user.username} est désormais No Roster`);
+                            updateClassementTimetrial(bot, false);
                         } else {
                             console.log("fail modif : ", playerPatch.data);
                         }

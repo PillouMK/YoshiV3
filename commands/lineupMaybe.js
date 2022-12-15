@@ -74,14 +74,14 @@ module.exports.run = async (bot, message, args) =>
                 }
                 // Enregistre le joueur ayant créé la line up
                 bdd_lineup[horaire]["lu"].push(membreObject);
-                message.channel.channel.send(`${membreObject.name} a bien été ajouté pour <t:${timeStamp}:t>`);
+                message.channel.send(`${membreObject.name} a bien été ajouté pour <t:${timeStamp}:t>`);
                 saveBDD("./bdd/lineup.json", bdd_lineupRequire);
 
             } else {
                 if(bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id) != -1){
                     let index = bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id)
                     if(!bdd_lineup[horaire]["lu"][index].isCan && bdd_lineup[horaire]["lu"][index].mute == membreObject.mute) {
-                        message.channel.send({content: `${membreObject.name} est déjà dans la line up de <t:"${timeStamp}:t> (em maybe)`});
+                        message.channel.send({content: `${membreObject.name} est déjà dans la line up de <t:${timeStamp}:t> (en maybe)`});
                         return;
                     }
                     if(!bdd_lineup[horaire]["lu"][index].isCan && bdd_lineup[horaire]["lu"][index].mute != membreObject.mute) {
