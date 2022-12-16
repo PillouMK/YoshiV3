@@ -27,6 +27,7 @@ module.exports.run = async (bot, message, args) =>
 
     let membre;
     let horaire = (args[1] != undefined) ? args[1] : undefined;
+    let member = (args[2] != undefined) ? args[2] : undefined;
     let isValid = false;
 
     // console.log(message.mentions.members.first());
@@ -38,7 +39,7 @@ module.exports.run = async (bot, message, args) =>
     }
 
     if(args.length > 2) {
-        if(args.length == 3 && message.mentions.members.first()) {
+        if(args.length == 3 && member != undefined) {
             // rien faire
         } else {
             message.channel.send({content : `Tu ne peux drop que d'un horaire à la fois`});

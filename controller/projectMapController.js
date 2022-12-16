@@ -21,7 +21,6 @@ const updateProjectMapRanking = async (bot, idRoster) => {
     let showNoValidData = false;
 
     let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
-    console.log(projectMap);
     let projectMapValidEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
     let buttons = makeListButton(isMobile, month, iteration, showNoValidData);
 
@@ -109,8 +108,8 @@ const updateProjectMapRanking = async (bot, idRoster) => {
 
     });
 
+    // Delete buttons from the message
     collectorButton.on('end', async i => {
-        console.log("now");
         messageReaction.edit({ components: [] });
     })
 }
@@ -247,17 +246,22 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
             })));
             let maxLengthName = Math.max(...(projectMapRanking.projectMapValid.map(el => el.idMap.length)));
             projectMapRanking.projectMapValid.forEach((element, index) => {
-                console.log(element);
+                
                 element.score = addBlank(element.score, maxLengthScore)
                 element.iteration = addBlank(element.iteration, maxLengthIteration);
                 element.idMap = addBlank(element.idMap, maxLengthName, true);
                 let space = (index < 9) ? ` ` : "";
+                // a field canno't have more than 1024 character
                 if(field.length > 900) {
                     arrayFields.push(field);
                     field = "";
                 }
                 field += `\`${index + 1}${space} : ${element.idMap} | ${element.score} pts | ${element.iteration}\`\n`;
             }); 
+            if(field.length > 0) {
+                arrayFields.push(field);
+                    field = "";
+            }
             projectMapRank
                 .setColor(color)
                 .setThumbnail('attachment://LaYoshiFamily.png')
@@ -267,7 +271,6 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
                     projectMapRank.addFields({ name: `__Map :     Score :     Iteration :__`, value: elt, inline: true })
                 })
             projectMapRank
-                .addFields({ name: `__Map :     Score :     Iteration :__`, value: field, inline: true })
                 .setFooter({ text: `project Map ${idRoster}` })
                 .setTimestamp(Date.now());
         } else {
@@ -301,12 +304,18 @@ const makeEmbedMessage = (projectMap, idRoster, isMobile, showNoValidData, color
                     element.iteration = addBlank(element.iteration, maxLengthIteration);
                     element.idMap = addBlank(element.idMap, maxLengthName, true);
                     let space = (index < 9) ? ` ` : "";
+
+                    // a field canno't have more than 1024 character
                     if(field.length > 900) {
                         arrayFields.push(field);
                         field = "";
                     }
                     field += `\`${index + 1}${space} : ${element.idMap} | ${element.score} pts | ${element.iteration}\`\n`;
                 });
+                if(field.length > 0) {
+                    arrayFields.push(field);
+                        field = "";
+                }
                 projectMapRank
                     .addFields({ name: `.`, value: `__**Données non-valides :**__`, inline: false })
                     arrayFields.forEach(elt => {
