@@ -3,7 +3,6 @@ const fs = require('fs');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ComponentType  } = require('discord.js');
 
 const { getTimetrialsByMap } = require("../controller/apiController");
-const { max } = require('moment/moment');
 
 /**
  * 
@@ -36,54 +35,43 @@ module.exports.run = async (bot, message, args) =>
 
             collectorButton.on('collect', async i => { 
                 if(i.customId === "YFG") {
+                    await i.deferUpdate();
                     idRoster = "YFG";
                     idRosterForDisabled = "YFG";
                     const listButtonNew = makeListButton(isShroomless, isMobile, idRosterForDisabled);
                     let responseEmbed = await timetrialEmbedMessage(idMap, isMobile, isShroomless, idUser, idRoster);
                     messageReaction.edit({embeds : [responseEmbed], components: [listButtonNew] });
-                    i.reply("ok");
-                    i.deleteReply();
-                    return;
                 }
                 if(i.customId === "YFO") {
+                    await i.deferUpdate();
                     idRoster = "YFO";
                     idRosterForDisabled = "YFO";
                     const listButtonNew = makeListButton(isShroomless, isMobile, idRosterForDisabled);
                     let responseEmbed = await timetrialEmbedMessage(idMap, isMobile, isShroomless, idUser, idRoster);
                     messageReaction.edit({embeds : [responseEmbed], components: [listButtonNew] });
-                    i.reply("ok");
-                    i.deleteReply();
-                    return;
                 }
                 if(i.customId === "YF") {
+                    await i.deferUpdate();
                     idRoster = undefined;
                     idRosterForDisabled = "YF";
                     const listButtonNew = makeListButton(isShroomless, isMobile, idRosterForDisabled);
                     let responseEmbed = await timetrialEmbedMessage(idMap, isMobile, isShroomless, idUser);
                     messageReaction.edit({embeds : [responseEmbed], components: [listButtonNew] });
-                    i.reply("ok");
-                    i.deleteReply();
-                    return;
                 }
                 if(i.customId === "shroomless") {
+                    await i.deferUpdate();
                     isShroomless = !isShroomless;
                     const listButtonNew = makeListButton(isShroomless, isMobile, idRosterForDisabled);
                     let responseEmbed = await timetrialEmbedMessage(idMap, isMobile, isShroomless, idUser, idRoster);
                     messageReaction.edit({embeds: [responseEmbed], components: [listButtonNew]});
-                    i.reply("ok");
-                    i.deleteReply();
-                    return;
                 }
                 if(i.customId === "view") {
+                    await i.deferUpdate();
                     isMobile = !isMobile;
                     const listButtonNew = makeListButton(isShroomless, isMobile, idRosterForDisabled);
                     let responseEmbed = await timetrialEmbedMessage(idMap, isMobile, isShroomless, idUser, idRoster);
                     messageReaction.edit({embeds: [responseEmbed], components: [listButtonNew]});
-                    i.reply("ok");
-                    i.deleteReply();
-                    return;
                 }
-                    
             });
 
             collectorButton.on('end', async i => {

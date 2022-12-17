@@ -31,79 +31,76 @@ const updateProjectMapRanking = async (bot, idRoster) => {
     }
 
     msg.edit({ content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [projectMapValidEmbed], files: [file], components: [buttons] });
-    const filter = i => {
-        i.deferUpdate();
-        return true
-    };
-    const collectorButton = msg.createMessageComponentCollector({ filter, componentType: ComponentType.Button, time: 86400000 });
+    
+    const collectorButton = msg.createMessageComponentCollector({ componentType: ComponentType.Button, time: 86400000 });
 
     
     collectorButton.on('collect', async i => {
 
         if (i.customId === "iteration-10") {
+            await i.deferUpdate();
             iteration = 10;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
         }
         if (i.customId === "iteration-20") {
+            await i.deferUpdate();
             iteration = 20;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
             return;
         }
         if (i.customId === "currentMonth-3") {
+            await i.deferUpdate();
             month = 3;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
         }
         if (i.customId === "currentMonth-6") {
+            await i.deferUpdate();
             month = 6;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
         }
         if (i.customId === "viewMobile") {
+            await i.deferUpdate();
             isMobile = !isMobile;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
         }
         if (i.customId === "viewPC") {
+            await i.deferUpdate();
             isMobile = !isMobile;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
         }
         if (i.customId === "showNotValid") {
+            await i.deferUpdate();
             showNoValidData = !showNoValidData;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));   
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });   
         }
         if (i.customId === "dontShowNotValid") {
+            await i.deferUpdate();
             showNoValidData = !showNoValidData;
             const listButtonNew = makeListButton(isMobile, month, iteration, showNoValidData);
             let projectMap = await getProjectMapByRoster(idRoster, month, iteration);
             let responseEmbed = makeEmbedMessage(projectMap, idRoster, isMobile, showNoValidData, color);
-            await msg.edit({ embeds: [responseEmbed], components: [listButtonNew], files: [file] });
-            i.editReply(messageRecap(idRoster, month, iteration, showNoValidData));
+            await msg.edit({content: messageRecap(idRoster, month, iteration, showNoValidData), embeds: [responseEmbed], components: [listButtonNew], files: [file] });
         }
 
     });

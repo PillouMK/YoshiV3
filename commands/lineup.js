@@ -24,8 +24,6 @@ const numberTest = /(0[\d]{1})|(1[\d]{1})|(2[0-3]{1})/;
 
 module.exports.run = async (bot, message, args) =>
 {
-    let memberCan;
-    let memberMaybe;
     let horaireList = [];
     let mix = false;
     const guild = await bot.guilds.fetch("135721923568074753");
@@ -62,26 +60,31 @@ module.exports.run = async (bot, message, args) =>
         	}
             const lineUp = await makeLineUpEmbed(bdd_lineup[horaire]["lu"], mix, guild, timeStamp)
             const listButtonNew = makeListButton(mix);
+            
             message.channel.send({embeds : [lineUp], components : [listButtonNew]}).then((messageButton) => {
                 const collectorButton = messageButton.createMessageComponentCollector({ componentType: ComponentType.Button, time: 3600000 });
                 collectorButton.on('collect', async i => { 
                     if(i.customId === "roster") {
-                        let newMix = false;
-                        const listButtonNew = makeListButton(newMix);
-                        let lineUp = await makeLineUpEmbed(bdd_lineup[horaire]["lu"], newMix, guild, timeStamp)
+                        await i.deferUpdate();
+                        mix = !mix;
+                        const listButtonNew = makeListButton(mix);
+                        let lineUp = await makeLineUpEmbed(bdd_lineup[horaire]["lu"], mix, guild, timeStamp)
                         messageButton.edit({embeds : [lineUp], components: [listButtonNew] });
-                        i.reply("ok");
-                        i.deleteReply();
                         return;
                     }
                     if(i.customId === "mix") {
-                        let newMix = true;
-                        const listButtonNew = makeListButton(newMix);
-                        let lineUp = await makeLineUpEmbed(bdd_lineup[horaire]["lu"], newMix, guild, timeStamp)
+                        await i.deferUpdate();
+                        mix = !mix;
+                        const listButtonNew = makeListButton(mix);
+                        let lineUp = await makeLineUpEmbed(bdd_lineup[horaire]["lu"], mix, guild, timeStamp)
                         messageButton.edit({embeds : [lineUp], components: [listButtonNew] });
-                        i.reply("ok");
-                        i.deleteReply();
                         return;
+                    }
+                    if(i.customId === "refresh") {
+                        await i.deferUpdate();
+                        const listButtonNew = makeListButton(mix);
+                        let lineUp = await makeLineUpEmbed(bdd_lineup[horaire]["lu"], mix, guild, timeStamp)
+                        messageButton.edit({embeds : [lineUp], components: [listButtonNew] });
                     }
                 });
 
@@ -109,6 +112,13 @@ const makeListButton = (isMix) => {
                 .setCustomId(idView)
                 .setLabel(labelView)
                 .setStyle(ButtonStyle.Success)
+        )
+        .addComponents(
+            new ButtonBuilder()
+                .setCustomId("refresh")
+                .setEmoji("<:refresh:1053464938380808252>")
+                .setLabel("Actualiser")
+                .setStyle(ButtonStyle.Secondary)
         );
         return row;
 }

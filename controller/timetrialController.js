@@ -23,17 +23,16 @@ const settings = require("../bdd/settings.json");
     const collector = msg.createMessageComponentCollector({ componentType: ComponentType.Button, time: 86400000 });
         collector.on('collect', async i => { 
             if(i.customId === "viewMobile") {
+                await i.deferUpdate();
                 let embedMsg = makeEmbedMessage(classement, false);
                 let newbuttons = makeListButton(false);
                 msg.edit({content: "", embeds : [embedMsg], components: [newbuttons] });
-                i.reply("ok");
-                i.deleteReply();
+                
             } else if(i.customId === "viewPC") {
+                await i.deferUpdate();
                 let embedMsg = makeEmbedMessage(classement, true);
                 let newbuttons = makeListButton(true);
                 msg.edit({content: "La vue Mobile n'affiche que le joueurs ayant 10 pts ou +", embeds : [embedMsg], components: [newbuttons] });
-                i.reply("ok");
-                i.deleteReply();
                 return;
             }
         });

@@ -49,15 +49,13 @@ const playerAddInGuild = async (bot, member) => {
  */
 
 const playerRosterChange = async (bot, oldMember, newMember) => {
-    console.log(oldMember.user.username);
     // if oldMember role collection is higher in size than the new one, then a role has been removed
     if (oldMember.roles.cache.size > newMember.roles.cache.size) {      
-        console.log(oldMember.user.username, 0);
         let authorRoles = oldMember.roles.cache;
         // Looping through the role and checking which role was removed.
         for(role of authorRoles) {
             role = role[1];
-            console.log("role", role.id);
+            console.log("role", role.id, role.name);
             // Find the role that have been removed
             if (!newMember.roles.cache.has(role.id)) {
                 // galaxy or odyssey role, don't care others
@@ -103,12 +101,11 @@ const playerRosterChange = async (bot, oldMember, newMember) => {
             }
         }
     } else if (oldMember.roles.cache.size < newMember.roles.cache.size) { 
-        console.log(oldMember.user.username, 1);
         let authorRoles = newMember.roles.cache;
         // Looping through the role and checking which role was added.
         for(role of authorRoles) {
             role = role[1];
-            console.log("role", role.id);
+            console.log("role", role.id, role.name);
             // Find the role that have been added
             if (!oldMember.roles.cache.has(role.id)) {
                 // galaxy or odyssey role, don't care others             
