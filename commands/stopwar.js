@@ -43,7 +43,7 @@ module.exports.run = async (bot, message, args) =>
                     collectorButton.on('collect', async i => { 
                         if(i.customId === "oui") {
                             await i.deferUpdate();
-                            stopWar(war, message, id_channel);
+                            stopWar(bot, war, message, id_channel);
                             messageReaction.edit({content: "Le war a été terminé", components: [] });
                         }
                         if(i.customId === "non") {
@@ -63,7 +63,7 @@ module.exports.run = async (bot, message, args) =>
             
             return;
         } 
-        stopWar(war, message, id_channel);
+        stopWar(bot, war, message, id_channel);
         
     }
     else
@@ -73,7 +73,7 @@ module.exports.run = async (bot, message, args) =>
     
 }
 
-const stopWar = async (war, message, id_channel) => {
+const stopWar = async (bot, war, message, id_channel) => {
     let totalScore  = war.paramWar.totaleDiff;
     let totalYF  	= war.team1.totalYF;
     let totalAdv  	= war.team2.totalADV;
