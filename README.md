@@ -123,7 +123,7 @@ The feature consists of 4 commands:
   
 **Example: (Line-up of 9pm)**  
 <img src="https://user-images.githubusercontent.com/74309535/210673696-06ad6a76-6a0c-4838-9c5f-9712c8c93c97.png" height="300">
-
+***
 ### Miscellaneous:
 The bot also has other minor features:  
 
