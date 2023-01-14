@@ -2,7 +2,7 @@
 Discord Bot of Yoshi Family (Mario Kart 8 Deluxe) team  
   
 Version : 3.0  
-Creator : PillouMK (https://github.com/PillouMK)  
+Creator : PillouMK (https://github.com/PillouMK), Discord : Pillou#5303
 
 # FR : 
 
