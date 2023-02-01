@@ -11,6 +11,7 @@ const fs = require('fs');
 
 module.exports.run = async (bot, message, args) =>
 {
+    // help command for users
     const embed1 = new EmbedBuilder()
         .setColor(3066993)
         .setTitle("__**Bot-war:**__")
