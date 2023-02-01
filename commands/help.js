@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) =>
                 value: "Ajoute une course, \"X\" correspond aux 6 places de l'équipe, \"Y\" à la map",
             },
             {
-                name: "**!er X X X X X X N MAP**",
+                name: "**!er X X X X X X MAP N**",
                 value: "Permet d'éditer une course, \"N\" est le numéro de la course, \"MAP\" la map et \"X\" les 6 placements",
             },
             {
@@ -102,7 +102,7 @@ module.exports.run = async (bot, message, args) =>
         .addFields(
             {
                 name: "**!set_tt [MAP] [TIME]**",
-                value: "Permet d'enregistrer un nouveau temps'",
+                value: "Permet d'enregistrer un nouveau temps",
                 },
                 {
                 name: "**!classement [MAP]**",
