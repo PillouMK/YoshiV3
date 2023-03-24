@@ -235,7 +235,6 @@ const patchPlayer = async (idPlayer, namePlayer = undefined, idRoster = undefine
     let body = {};
     if(namePlayer != undefined) body.name = namePlayer
     if(idRoster != undefined) body.idRoster = idRoster
-    console.log(body);
     const player = await axios.patch(
         `${API_URL}/player/${idPlayer}`,
         body,
@@ -286,6 +285,140 @@ const postProjectMap = async (scoresMaps, scoreMatch, idRoster) => {
     return projectMap;
 }
 
+const postWeeklyTT = async (idPlayer, idMap, time, isShroomless) => {
+    let responseObject;
+    const postWeeklyTimetrial = await axios.post(
+        `${API_URL}/weekly`,
+        {
+            idMap : idMap,   
+            idPlayer : idPlayer,   
+            isShroomless : isShroomless,
+            time : time
+        },
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return postWeeklyTimetrial;
+}
+
+const patchWeeklyTT = async (idPlayer, idMap, time, isShroomless) => {
+    let responseObject;
+    const patchWeeklyTimetrial = await axios.patch(
+        `${API_URL}/weekly/${idMap}/${idPlayer}/${isShroomless}`,
+        {
+            time: time
+        },
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return patchWeeklyTimetrial;
+}
+
+const getWeeklyTT = async () => {
+    let responseObject;
+    const weeklytt = await axios.get(
+        `${API_URL}/weekly`,
+        {
+            headers : header,
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return weeklytt
+}
+
+const postMapWeekly = async (weeklyMapArray) => {
+    let responseObject;
+    const postMap = await axios.post(
+        `${API_URL}/maps/weekly`,
+        {
+            weekly_maps: weeklyMapArray
+        },
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return postMap;
+}
+
+const patchMapWeekly = async (idMap, time) => {
+    let responseObject;
+    let body = {}
+    if(time.goldTime != undefined) body.goldTime = time.goldTime
+    if(time.silverTime != undefined) body.silverTime = time.silverTime
+    if(time.bronzeTime != undefined) body.bronzeTime = time.bronzeTime
+    if(time.ironTime != undefined) body.idRoster = time.ironTime
+    const patchMap = await axios.patch(
+        `${API_URL}/maps/weekly/${idMap}`,
+        body,
+        {
+            headers : header,  
+        }
+    ).then(response => {
+        responseObject = {
+            statusCode : response.status,
+            data : response.data
+        }
+        return responseObject;
+    }).catch(error => {
+        responseObject = {
+            statusCode : error.response.status,
+            data : error.response.data
+        }
+        return responseObject
+    });
+    return patchMap;
+}
+
+
 
 
 module.exports = {
@@ -296,11 +429,16 @@ module.exports = {
     getProjectMapByRoster,
     getPlayerById,
     getAllPlayer,
+    getWeeklyTT,
     // POST
     postTimetrial,
     postPlayer,
     postProjectMap,
+    postWeeklyTT,
+    postMapWeekly,
     // Patch
     patchTimetrial,
-    patchPlayer
+    patchPlayer,
+    patchWeeklyTT,
+    patchMapWeekly
 }

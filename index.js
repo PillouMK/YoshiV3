@@ -93,21 +93,32 @@ bot.on("messageCreate", async message =>
             message.channel.send("<:ultraYF:929784961341481031>");
         }
     }
-
-    args.forEach( element => {
-        switch(element.toUpperCase()){
-            case "RAIKOU" : 
-                message.channel.send("<:Raidoof:892105862225735703>");
-                break;
-            case "SHOCK" : case "SHOCKS" :
-                message.channel.send("<:shock:517084305579573302>");
-                break;
-            case "SENKU" :
-                message.channel.send("<:emoji_2:868339646168432670>");
-                break;
-        }
-    })
     
+    const proba = hasard(1, 100);
+    console.log(proba);
+    if(args.findIndex(elt => elt.toUpperCase() === "RAIKOU") != -1 ) {
+        if(proba < 6) {
+            let probaShiny = hasard(1, 100);
+            if(probaShiny < 6) {
+                message.channel.send("<:raikou_shiny:1087498284261720064>");
+            } else {
+                message.channel.send("<:raidoof:892105862225735703>");
+            }
+        }
+    } 
+
+    if(args.findIndex(elt => elt.toUpperCase() === "SHOCK") != -1 ) {
+        if(proba < 6) {
+            message.channel.send("<:shock:517084305579573302>");
+        }
+    } 
+
+    if(args.findIndex(elt => elt.toUpperCase() === "SENKU") != -1 ) {
+        if(proba < 6) {
+            message.channel.send("<:emoji_2:868339646168432670>")
+        }
+    } 
+
     if(!message.content.startsWith(prefix)) return;  
     let commandfile = bot.commands.get(cmd.slice(prefix.length));
     if (commandfile) commandfile.run(bot, message, args);

@@ -1,83 +1,10 @@
 {
     "lineUp": {
-        "11": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "12": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "13": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "14": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "15": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "16": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
         "21": {
             "lu": [
                 {
-                    "id": "283610717217619968",
-                    "name": "Yugo",
-                    "mute": false,
-                    "isCan": true
-                },
-                {
-                    "id": "282651327581126656",
-                    "name": "Yora",
-                    "mute": false,
-                    "isCan": true
-                },
-                {
-                    "id": "312668609321107456",
-                    "name": "Équinox",
-                    "roster": "Odyssey",
+                    "id": "450353797450039336",
+                    "name": "Pillou",
                     "mute": false,
                     "isCan": true
                 },
@@ -88,26 +15,68 @@
                     "isCan": true
                 },
                 {
-                    "id": "707282826738794606",
-                    "name": "nehca",
+                    "id": "451087930191118356",
+                    "name": "Floo",
                     "mute": false,
                     "isCan": true
                 },
                 {
-                    "id": "396700968949121025",
-                    "name": "Faker3",
+                    "id": "283610717217619968",
+                    "name": "Yugo",
                     "mute": false,
                     "isCan": true
                 },
                 {
-                    "id": "691941209681297439",
-                    "name": "Chacha",
+                    "id": "156445194861019136",
+                    "name": "Ti_C",
                     "mute": false,
                     "isCan": true
                 },
                 {
-                    "id": "559792713080373249",
-                    "name": "skyy",
+                    "id": "133208583943880704",
+                    "name": "Saïd",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "493804019354173442",
+                    "name": "Yasn",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "187955455270715392",
+                    "name": "cy",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "342656271222308864",
+                    "name": "Koryu",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "268443528101625857",
+                    "name": "Raikou322",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "155443739429437440",
+                    "name": "Aranaut",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "220958689471758336",
+                    "name": "Baby",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "312668609321107456",
+                    "name": "Équinox",
                     "mute": false,
                     "isCan": false
                 }
@@ -116,21 +85,47 @@
         "22": {
             "lu": [
                 {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "129353989010620417",
+                    "name": "Alexxx",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "283610717217619968",
+                    "name": "Yugo",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "156445194861019136",
+                    "name": "Ti_C",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
                     "id": "493804019354173442",
                     "name": "Yasn",
                     "mute": false,
                     "isCan": true
                 },
                 {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
+                    "id": "342656271222308864",
+                    "name": "Koryu",
                     "mute": false,
                     "isCan": true
-                }
-            ]
-        },
-        "23": {
-            "lu": [
+                },
+                {
+                    "id": "332887425007222786",
+                    "name": "Rayz",
+                    "mute": false,
+                    "isCan": true
+                },
                 {
                     "id": "312668609321107456",
                     "name": "Équinox",
@@ -138,38 +133,21 @@
                     "isCan": true
                 },
                 {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
+                    "id": "451087930191118356",
+                    "name": "Floo",
                     "mute": false,
                     "isCan": true
                 }
             ]
+        },
+        "23": {
+            "lu": []
         },
         "00": {
             "lu": [
                 {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "02": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
-                    "mute": false,
-                    "isCan": true
-                }
-            ]
-        },
-        "03": {
-            "lu": [
-                {
-                    "id": "450353797450039336",
-                    "name": "Pillou",
+                    "id": "268443528101625857",
+                    "name": "Raikou322",
                     "mute": false,
                     "isCan": true
                 }

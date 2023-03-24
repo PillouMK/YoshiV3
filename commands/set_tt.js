@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) =>
             isShroomLess = true;
         } else {
             message.reply({
-                content: `${args[3]} n'est pas un paramètre valide, pour indiquer shroomless écrit : **shroomless** ou **shl**`
+                content: `${args[3]} n'est pas un paramètre valide, pour indiquer shroomless écrit : **shroomless** / **shl** ou **ni**`
             });
             return;
         }
