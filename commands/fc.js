@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) =>
     else if(args.length > 1)
     {
         let usermention = message.mentions.members.first();
-        if(usermention) {
+        if(!usermention) {
             message.reply({
                 content: `${args[1]} n'est pas une mention valide`
             });
