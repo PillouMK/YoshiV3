@@ -28,6 +28,7 @@ module.exports.run = async (bot, message, args) =>
     let membre;
     let horaireList = [];
     let mute = false;
+    let authorName = message.author.username;
 
     // maybe
     let isCan = false;
@@ -74,7 +75,7 @@ module.exports.run = async (bot, message, args) =>
                 }
                 // Enregistre le joueur ayant créé la line up
                 bdd_lineup[horaire]["lu"].push(membreObject);
-                message.channel.send(`${membreObject.name} a bien été ajouté pour <t:${timeStamp}:t>\n(par: ${membreObject.username})`);
+                message.channel.send(`${membreObject.name} a bien été ajouté pour <t:${timeStamp}:t>\n(par: ${authorName})`);
                 saveBDD("./bdd/lineup.json", bdd_lineupRequire);
 
             } else {
@@ -87,18 +88,18 @@ module.exports.run = async (bot, message, args) =>
                     if(!bdd_lineup[horaire]["lu"][index].isCan && bdd_lineup[horaire]["lu"][index].mute != membreObject.mute) {
                         bdd_lineup[horaire]["lu"][index].mute = membreObject.mute
                         let isMute = membreObject.mute ? "mute pour" : "unmute pour"
-                        message.channel.send({content: `${membreObject.name} est désormais ${isMute} <t:${timeStamp}:t>\n(par: ${membreObject.username})`});
+                        message.channel.send({content: `${membreObject.name} est désormais ${isMute} <t:${timeStamp}:t>\n(par: ${authorName})`});
                         saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                         return;
                     }
                     bdd_lineup[horaire]["lu"][index].isCan = membreObject.isCan
-                    message.channel.send({content: `${membreObject.name} passe en maybe pour <t:${timeStamp}:t>\n(par: ${membreObject.username})`});
+                    message.channel.send({content: `${membreObject.name} passe en maybe pour <t:${timeStamp}:t>\n(par: ${authorName})`});
                     saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                     return;
                 }
                 bdd_lineup[horaire]["lu"].push(membreObject);
                 let msgIsMute = membreObject.mute ? "en mute" : ""
-                message.channel.send({content : `${membreObject.name} a bien été ajouté (maybe) pour <t:${timeStamp}:t> ${msgIsMute}\n(par: ${membreObject.username})`});
+                message.channel.send({content : `${membreObject.name} a bien été ajouté (maybe) pour <t:${timeStamp}:t> ${msgIsMute}\n(par: ${authorName})`});
                 saveBDD("./bdd/lineup.json", bdd_lineupRequire);
 
             }

@@ -29,6 +29,7 @@ module.exports.run = async (bot, message, args) =>
     let horaire = (args[1] != undefined) ? args[1] : undefined;
     let member = (args[2] != undefined) ? args[2] : undefined;
     let isValid = false;
+    let authorName = message.author.username;
 
     // console.log(message.mentions.members.first());
     if(message.mentions.members.first())
@@ -76,7 +77,7 @@ module.exports.run = async (bot, message, args) =>
                 {
                     let index = bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id);
                     bdd_lineup[horaire]["lu"].splice(index, 1);
-                    message.channel.send({content : `${membreObject.name} a bien été retiré pour <t:${timeStamp}:t>\n(par: ${membreObject.username})`});
+                    message.channel.send({content : `${membreObject.name} a bien été retiré pour <t:${timeStamp}:t>\n(par: ${authorName})`});
                     saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                 } else {
                     message.channel.send({content :  `${membreObject.name} n'est pas dans la line up de <t:${timeStamp}:t>`})
