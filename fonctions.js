@@ -44,8 +44,40 @@ const settings = require("./bdd/settings.json");
             }
             return string;
         }
-        
+    }
+
+    function timeToMs(time) {
+        // transform x:xx.xxx into millisecond
+        let milli = parseInt(time.slice(5), 10);
+        let minToMil = parseInt(time.slice(0,1), 10)*60000;
+        let secTomil = parseInt(time.slice(2,4), 10)*1000;
+        return minToMil+secTomil+milli;
+    }
+
+    function msToTime(s, isDiff = false) {
+
+        // Pad to 2 or 3 digits, default is 2
+        function pad(n, z) {
+          z = z || 2;
+          return ('00' + n).slice(-z);
+        }
+      
+        let ms = s % 1000;
+        s = (s - ms) / 1000;
+        let secs = s % 60;
+        s = (s - secs) / 60;
+        let mins = s % 60;
+      
+        return !isDiff ? pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3) : secs + '.' + pad(ms, 3);
     }
 
 
-module.exports = {saveBDD, deleteAllLineUp, hasard, adaptHour, addBlank};
+module.exports = {
+    saveBDD, 
+    deleteAllLineUp, 
+    hasard, 
+    adaptHour, 
+    addBlank, 
+    timeToMs, 
+    msToTime
+};

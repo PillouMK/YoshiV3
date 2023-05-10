@@ -1,7 +1,11 @@
 {
     "decalageHoraire": 0,
+    "yoshiGuildId": "135721923568074753",
     "channelRankings": "1037106131035750571",
     "rankingYFG": "1037106433201799309",
     "rankingYFO": "1037106437819736154",
-    "rankingTimetrials": "1037106346451030049"
+    "rankingTimetrials": "1037106346451030049",
+    "timetrialAnnounceChannel": "1096761198147551303",
+    "yoshiStaffId": "353621406891769866",
+    "devId": "450353797450039336"
 }

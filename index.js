@@ -19,8 +19,7 @@ const { updateClassementTimetrial } = require("./controller/timetrialController"
 const { playerAddInGuild, playerRosterChange} = require("./controller/playerController");
 const { updateProjectMapRanking } = require("./controller/projectMapController");
 require('dotenv').config();
-const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder , ButtonStyle, ComponentType } = require('discord.js');
-
+const cron = require('node-cron');
 
 bot.login(process.env.token);
 bot.commands = new Discord.Collection();
@@ -69,12 +68,15 @@ bot.on("guildMemberUpdate", (oldMember, newMember) => {
 
 bot.on("messageCreate", async message => 
 {
+
+    // For tests
+    if(message.author.id !== "450353797450039336") return;
     
     if(message.author.bot)
     {
         if(message.author.id !== "671666822470434816") return;
     }
-    if(message.channel.type === "dm" && message.author.id !== "671666822470434816")
+    if(message.channel.type == "dm" && message.author.id !== "671666822470434816")
     {
         bot.users.fetch('450353797450039336', false).then((user) => {
  			user.send(message.author.username+" : "+message.content);
@@ -85,7 +87,7 @@ bot.on("messageCreate", async message =>
     
     let prefix          = "!";
     let messagearray    = message.content.split(" ");
-    let cmd             = messagearray[0];
+    let cmd             = messagearray[0].toLowerCase();
     let args            = message.content.trim().split(/ +/g);
     
     if(message.content.includes("ultraYF")) {
@@ -95,7 +97,6 @@ bot.on("messageCreate", async message =>
     }
     
     const proba = hasard(1, 100);
-    console.log(proba);
     if(args.findIndex(elt => elt.toUpperCase() === "RAIKOU") != -1 ) {
         if(proba < 6) {
             let probaShiny = hasard(1, 100);
@@ -145,6 +146,8 @@ setInterval(() => {
     deleteAllLineUp();
 }, 3600000);
 
-
+cron.schedule('0 */6 * * *', () => {
+    updateClassementTimetrial(bot, false);
+})
 
 

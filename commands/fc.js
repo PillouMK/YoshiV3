@@ -3,40 +3,54 @@ const fs = require('fs');
 
 const bdd_fc = require("../bdd/fc.json");
 
-function Savebdd()
-{
-    fs.writeFile("./bdd/fc.json", JSON.stringify(bdd_fc, null, 4), (err) =>
-    {
-        console.log('BDD save');
-        if(err) message.channel.send("Une erreur est survenue");
-    });
-}
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Message} message 
+ * @param {Array} args 
+ */
 
 module.exports.run = async (bot, message, args) =>
 {
-    let id_author = message.author.id;
-    console.log(id_author);
+    const id_author = message.author.id;
+    
     if(args.length === 1)
     {
         if(bdd_fc["friendcode"][id_author])
         {
-            message.channel.send(bdd_fc["friendcode"][id_author]);
+            message.reply({
+                content: bdd_fc["friendcode"][id_author]
+            });
         }
         else{
-            message.channel.send("Je ne connais pas ton fc, fais !set_fc [fc] pour l'enregistrer");
+            message.reply({
+                content: "Je ne connais pas ton fc, fais !set_fc [fc] pour l'enregistrer"
+            });
         }
     }
     else if(args.length > 1)
     {
         let usermention = message.mentions.members.first();
-        console.log(usermention.id);
+        if(usermention.id == undefined) {
+            message.reply({
+                content: `${args[1]} n'est pas une mention valide`
+            });
+            return
+        }
+
         if(bdd_fc["friendcode"][usermention.id])
         {
-            message.channel.send(bdd_fc["friendcode"][usermention.id]);
+            message.reply({
+                content: bdd_fc["friendcode"][usermention.id]
+            });
+            return
         }
         else
         {
-            message.reply("l'utilisateur mentionné n'a pas son code ami d'enregistré");
+            message.reply({
+                content: "l'utilisateur mentionné n'a pas son code ami d'enregistré"
+            });
+            return
         }
     }
 }

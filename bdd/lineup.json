@@ -79,6 +79,12 @@
                     "name": "Équinox",
                     "mute": false,
                     "isCan": false
+                },
+                {
+                    "id": "133978257006526464",
+                    "name": "Thib",
+                    "mute": false,
+                    "isCan": true
                 }
             ]
         },
@@ -141,13 +147,26 @@
             ]
         },
         "23": {
-            "lu": []
+            "lu": [
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
+                    "mute": false,
+                    "isCan": true
+                }
+            ]
         },
         "00": {
             "lu": [
                 {
                     "id": "268443528101625857",
                     "name": "Raikou322",
+                    "mute": false,
+                    "isCan": true
+                },
+                {
+                    "id": "450353797450039336",
+                    "name": "Pillou",
                     "mute": false,
                     "isCan": true
                 }

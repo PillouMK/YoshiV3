@@ -24,12 +24,12 @@ module.exports.run = async (bot, message, args) =>
     const id_channel = message.channel.id;
     const nameMap = args[7];
     const places = [args[1],args[2],args[3],args[4],args[5],args[6]];
-    let race = bdd_botwar["botwar"][id_channel]["paramWar"]["race"];
     if(!bdd_botwar["botwar"][id_channel])
     {
         message.reply("Il n'y a pas de war");
         return;
     }
+    let race = bdd_botwar["botwar"][id_channel]["paramWar"]["race"];
     let verifDoubleMSG = bdd_botwar["botwar"][id_channel]["paramWar"]["verifDoublon"];
     if(message.content === verifDoubleMSG)
     {

@@ -50,9 +50,13 @@ module.exports.run = async (bot, message, args) =>
 
     // Enregistrement des horaires
     if(horaire != undefined){
-        if(message.author.id === "156445194861019136") {
-            horaire = (parseInt(horaire) + 1).toString()
+        /*if(message.author.id === "156445194861019136") {
+            if(horaire.toString() == "23") {
+                horaire = "00";
+            } else {
+                horaire = (parseInt(horaire) + 1).toString();
             }
+        }*/
         if(numberTest.test(horaire) && horaire.length == 2){
             isValid = true;
         }
@@ -72,7 +76,7 @@ module.exports.run = async (bot, message, args) =>
                 {
                     let index = bdd_lineup[horaire]["lu"].findIndex(x => x.id === membreObject.id);
                     bdd_lineup[horaire]["lu"].splice(index, 1);
-                    message.channel.send({content : `${membreObject.name} a bien été retiré pour <t:${timeStamp}:t> !`});
+                    message.channel.send({content : `${membreObject.name} a bien été retiré pour <t:${timeStamp}:t>\n(par: ${membreObject.username})`});
                     saveBDD("./bdd/lineup.json", bdd_lineupRequire);
                 } else {
                     message.channel.send({content :  `${membreObject.name} n'est pas dans la line up de <t:${timeStamp}:t>`})

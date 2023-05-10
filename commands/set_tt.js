@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { updateClassementTimetrial } = require("../controller/timetrialController");
+const { timeToMs } = require('../fonctions');
 const { getAllMaps, postTimetrial, patchTimetrial } = require("../controller/apiController");
 /**
  * 
@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>
     const time = args[2];
     let isShroomLess = false;
     if(args[3] != undefined) {
-        if(args[3] === "shroomless" || args[3] === "shl" ||  args[3] === "ni") {
+        if(args[3] === "ni") {
             isShroomLess = true;
         } else {
             message.reply({
@@ -30,7 +30,7 @@ module.exports.run = async (bot, message, args) =>
     
     // check if the map exist
     if(mapsArray.statusCode === 200) {
-        if(mapsArray.data.findIndex(x => x.idMap === idMap) == -1) {
+        if(mapsArray.data.findIndex(x => x.idMap.toLowerCase() === idMap.toLowerCase()) == -1) {
             message.reply({
                 content : `${idMap} n'est pas un nom de map valide`
             });
@@ -52,10 +52,7 @@ module.exports.run = async (bot, message, args) =>
     }
 
     // transform x:xx.xxx into millisecond
-    let milli = parseInt(time.slice(5), 10);
-    let minToMil = parseInt(time.slice(0,1), 10)*60000;
-    let secTomil = parseInt(time.slice(2,4), 10)*1000;
-    const timeasNumber = minToMil+secTomil+milli;
+    const timeasNumber = timeToMs(time);
 
     let patch = await patchTimetrial(idPlayer, idMap, timeasNumber, isShroomLess);
     if(patch.statusCode != 200) {
@@ -65,21 +62,18 @@ module.exports.run = async (bot, message, args) =>
             message.reply({
                 content : `Nouveau temps : ${time} ${response}`
             });
-            updateClassementTimetrial(bot, false);
         } else {
             message.reply({
-                content : `erreur : ${post.data}`
+                content : `erreur : ${post.data.toString()}`
             })
+            console.log(post.data);
         }
     } else {
         let response = isShroomLess ? "en shroomless": "avec items";
         message.reply({
             content : `Nouveau temps : ${patch.data.newTime} (${patch.data.diff}s) ${response}\nTon ancien temps était : ${patch.data.oldTime} `
         });
-        updateClassementTimetrial(bot, false);
     }
-
-
 }
 
 

@@ -23,24 +23,23 @@ module.exports.run = async (bot, message, args) =>
     const nameMap = args[7];
     const places = [args[1],args[2],args[3],args[4],args[5],args[6]];
     let raceData = (race-1);
-    console.log(race, !isNaN(race));
     if(bdd_botwar["botwar"][id_channel]) //id existant
     {
         if(race > bdd_botwar["botwar"][id_channel]["paramWar"]["race"] || race <= 0 || isNaN(race))
         {
-            message.channel.send(`${race} n'est pas un numéro de map valide`);
+            message.reply({content: `${race} n'est pas un numéro de map valide`});
             return;
         }
         let doublon = verifNoDoublon(places);
         if(doublon)
         {
-            message.channel.send("Tu as mis deux fois la même place");
+            message.reply({content: "Tu as mis deux fois la même place"});
             return;
         }
         let scoreYF = placeToPoint(places);
         if(!scoreYF)
         {
-            message.reply(`${args[1]}, ${args[2]}, ${args[3]}, ${args[4]}, ${args[5]}, ${args[6]} : une des places n'est pas comprises entre 1 et 12`);
+            message.reply({content: `${args[1]}, ${args[2]}, ${args[3]}, ${args[4]}, ${args[5]}, ${args[6]} : une des places n'est pas comprises entre 1 et 12`});
             return;
         }
 
@@ -51,7 +50,7 @@ module.exports.run = async (bot, message, args) =>
                 return;
             }
         } else {
-            message.reply("Erreur API, je ne peux pas vérifier l'id de la map, je désactive la sauvegarde des données");
+            message.reply({content: "Erreur API, je ne peux pas vérifier l'id de la map, je désactive la sauvegarde des données"});
             bdd_botwar.botwar[id_channel].paramWar.saveStats = false;
         }
         let countdiff       = 0;
@@ -93,7 +92,7 @@ module.exports.run = async (bot, message, args) =>
     }
     else
     {
-        message.reply("Il n'y a pas de war");
+        message.reply({content: "Il n'y a pas de war"});
     }
 }
 
