@@ -31,9 +31,10 @@ module.exports.run = async (bot, message, args) =>
     // Remplissage de la liste d'horaire
     for(element in args){
         //Ti_C décalage
+        /*
         if(numberTest.test(args[element]) && args[element].length == 2 && message.author.id === "156445194861019136") {
                 args[element] = (parseInt(args[element]) + 1).toString()
-            }
+            }*/
         if(numberTest.test(args[element]) && args[element].length == 2){   
             horaireList.push(args[element]);
         }
