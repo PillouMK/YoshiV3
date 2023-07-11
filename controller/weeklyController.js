@@ -1,7 +1,5 @@
-const { getAllPlayer } = require("../controller/apiController");
 const { EmbedBuilder, AttachmentBuilder, ActionRowBuilder, ButtonBuilder , ButtonStyle, ComponentType } = require('discord.js');
 const {  msToTime } = require("../fonctions");
-const settings = require("../bdd/settings.json");
 const bdd_weeklyMap = require("../bdd/weeklyMap.json");
 
 
@@ -20,7 +18,7 @@ const makeEmbedWeeklyAnnounce = () => {
             const emoteIsObligatory = element.isObligatory ? ":bangbang:" : ":grey_question:";
             const rosterIndicator = element.roster === "YFG" ? ":green_circle:" : ":blue_circle:"
             let title = `${element.idMap}  : ${rosterIndicator} - ${emoteIsShroomless} - ${emoteIsObligatory}`;
-            let textFloor = `:first_place:\`Gold   : ${msToTime(element.goldTime)}\`\n:second_place:\`Silver : ${msToTime(element.silverTime)}\`\n:third_place:\`Bronze : ${msToTime(element.bronzeTime)}\`\n:fire:\`Iron   : ${msToTime(element.ironTime)}\``
+            let textFloor = `:first_place:\`Gold   : ${msToTime(element.goldTime)}\`\n:second_place:\`Silver : ${msToTime(element.silverTime)}\`\n:third_place:\`Bronze : ${msToTime(element.bronzeTime)}\``
             if(index % 2 == 0 && index != 0) weeklyMapEmbed.addFields({name: '\u200b', value: '\u200b'});
             weeklyMapEmbed.addFields({name: title, value: textFloor, inline: true})
             // .addField('\u200b', '\u200b')

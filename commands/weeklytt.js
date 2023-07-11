@@ -51,10 +51,10 @@ module.exports.run = async (bot, message, args) =>
                             break;
                         }
                     }
-                    const listButtonNew = makeListButton(weeklytt);
+                    let currentMap = weeklytt[mapIndex].map.idMap+isShroomless.
+                    const listButtonNew = makeListButton(weeklytt, currentMap);
                     let isShroomless = weeklytt[mapIndex].map.isShroomless ? "ni" : "item"
-                    let currentMap = weeklytt[mapIndex].map.idMap+isShroomless
-                    let responseEmbed = await weeklyEmbedMessage(weeklytt[mapIndex], currentMap);
+                    let responseEmbed = await weeklyEmbedMessage(weeklytt[mapIndex]);
                     messageReaction.edit({embeds : [responseEmbed], components: [listButtonNew] });
                 
             });
@@ -122,10 +122,6 @@ const makeEmbedMessage = (weeklytt) => {
         {
             nameFloor: "Bronze",
             timeFloor: msToTime(weeklytt.map.bronzeTime)
-        },
-        {
-            nameFloor: "Iron",
-            timeFloor: msToTime(weeklytt.map.ironTime)
         },
         {
             nameFloor: "Out",

@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) =>
 
     if(args.length != 9) {
         message.reply({
-            content: "nombre de paramètres incorrect, voici un exemple : !set_weeklyMap idMap Mode goldTime silverTime bronzeTime ironTime obligatoire idRoster\n- Mode = ni ou item\n- obligatoire = oui ou non\n- times : format x.xx.xxx\n- roster : YFG ou YFO"
+            content: "nombre de paramètres incorrect, voici un exemple : !set_weeklyMap idMap Mode goldTime silverTime bronzeTime obligatoire idRoster\n- Mode = ni ou item\n- obligatoire = oui ou non\n- times : format x.xx.xxx\n- roster : YFG ou YFO"
         });
         return;
     }
@@ -41,21 +41,21 @@ module.exports.run = async (bot, message, args) =>
     }
     if(args[2] !== "ni" && args[2] !== "item") {
         message.reply({
-            content: `${args[2]} n'est pas un mode valide (il faut indiquer "ni" (shroomless) ou "i" (items))`
+            content: `${args[2]} n'est pas un mode valide (il faut indiquer "ni" (shroomless) ou "item" (items))`
         })
         return;
     }
 
-    if(args[7] !== "oui" && args[7] !== "non") {
+    if(args[6] !== "oui" && args[6] !== "non") {
         message.reply({
-            content: `${args[7]} n'est pas un mode valide (il faut indiquer "oui" (obligatoire) ou "non" (non obligatoire))`
+            content: `${args[6]} n'est pas un mode valide (il faut indiquer "oui" (obligatoire) ou "non" (non obligatoire))`
         })
         return;
     }
 
-    if(args[8].toUpperCase() !== "YFG" && args[8].toUpperCase() !== "YFO") {
+    if(args[7].toUpperCase() !== "YFG" && args[8].toUpperCase() !== "YFO") {
         message.reply({
-            content: `${args[8]} n'est pas un mode valide (il faut indiquer **YFG** ou **YFG**)`
+            content: `${args[7]} n'est pas un mode valide (il faut indiquer **YFG** ou **YFG**)`
         })
         return;
     }
@@ -65,10 +65,9 @@ module.exports.run = async (bot, message, args) =>
     const goldTime      = args[3];
     const silverTime    = args[4];
     const bronzeTime    = args[5];
-    const ironTime      = args[6];
     const arrayFloor = [goldTime, silverTime, bronzeTime, ironTime];
-    const isObligatory = (args[7] === "oui");
-    const roster = args[8];
+    const isObligatory = (args[6] === "oui");
+    const roster = args[7];
     let timeValids = true;
     let mapAlreadySet = false;
 
@@ -112,7 +111,6 @@ module.exports.run = async (bot, message, args) =>
         goldTime: timeToMs(goldTime),
         silverTime: timeToMs(silverTime),
         bronzeTime: timeToMs(bronzeTime),
-        ironTime: timeToMs(ironTime),
         roster: roster
     };
 
