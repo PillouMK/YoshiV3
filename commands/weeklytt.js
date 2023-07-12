@@ -16,13 +16,14 @@ const { msToTime, addBlank } = require('../fonctions');
 module.exports.run = async (bot, message, args) =>
 {
   
+    return;
     
     let weekly = await getWeeklyTT();
     if(weekly.statusCode != 200) {
         message.reply({
             content: `Erreur API (${weekly.statusCode})`
         });
-        console.log(weeklytt.statusCode, weekly.data);
+        console.log(weekly.statusCode, weekly.data);
         return;
     }
     let weeklytt = weekly.data.arrayResponse;
@@ -51,10 +52,10 @@ module.exports.run = async (bot, message, args) =>
                             break;
                         }
                     }
-                    let currentMap = weeklytt[mapIndex].map.idMap+isShroomless.
-                    const listButtonNew = makeListButton(weeklytt, currentMap);
+                    const listButtonNew = makeListButton(weeklytt);
                     let isShroomless = weeklytt[mapIndex].map.isShroomless ? "ni" : "item"
-                    let responseEmbed = await weeklyEmbedMessage(weeklytt[mapIndex]);
+                    let currentMap = weeklytt[mapIndex].map.idMap+isShroomless
+                    let responseEmbed = await weeklyEmbedMessage(weeklytt[mapIndex], currentMap);
                     messageReaction.edit({embeds : [responseEmbed], components: [listButtonNew] });
                 
             });

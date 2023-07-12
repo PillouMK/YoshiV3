@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) =>
     
     let mapsArray = await getAllMaps();
 
-    if(args.length != 9) {
+    if(args.length != 8) {
         message.reply({
             content: "nombre de paramètres incorrect, voici un exemple : !set_weeklyMap idMap Mode goldTime silverTime bronzeTime obligatoire idRoster\n- Mode = ni ou item\n- obligatoire = oui ou non\n- times : format x.xx.xxx\n- roster : YFG ou YFO"
         });
@@ -53,7 +53,7 @@ module.exports.run = async (bot, message, args) =>
         return;
     }
 
-    if(args[7].toUpperCase() !== "YFG" && args[8].toUpperCase() !== "YFO") {
+    if(args[7].toUpperCase() !== "YFG" && args[7].toUpperCase() !== "YFO") {
         message.reply({
             content: `${args[7]} n'est pas un mode valide (il faut indiquer **YFG** ou **YFG**)`
         })
@@ -65,7 +65,7 @@ module.exports.run = async (bot, message, args) =>
     const goldTime      = args[3];
     const silverTime    = args[4];
     const bronzeTime    = args[5];
-    const arrayFloor = [goldTime, silverTime, bronzeTime, ironTime];
+    const arrayFloor = [goldTime, silverTime, bronzeTime];
     const isObligatory = (args[6] === "oui");
     const roster = args[7];
     let timeValids = true;

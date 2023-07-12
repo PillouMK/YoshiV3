@@ -83,6 +83,7 @@ const makeEmbedMessage = (classement, isMobile) => {
         let fieldName = "";
         let fieldPoints = "";
         let fieldTop = "";
+        console.log(classement);
         classement.data.forEach((element, index) => {
             if(element.tt_points == 0) {
                 return;
